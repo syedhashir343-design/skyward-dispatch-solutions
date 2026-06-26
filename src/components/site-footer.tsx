@@ -15,11 +15,18 @@ export function SiteFooter() {
             Headquartered in Toledo, Ohio.
           </p>
           <div className="mt-5 flex gap-3">
-            {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
+            {[
+              { Icon: Facebook, href: "#", label: "Facebook" },
+              { Icon: Instagram, href: "https://www.instagram.com/skywardssolution?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
+              { Icon: Linkedin, href: "#", label: "LinkedIn" },
+              { Icon: Twitter, href: "#", label: "Twitter" },
+            ].map(({ Icon, href, label }, i) => (
               <a
                 key={i}
-                href="#"
-                aria-label="Social link"
+                href={href}
+                target={href !== "#" ? "_blank" : undefined}
+                rel={href !== "#" ? "noopener noreferrer" : undefined}
+                aria-label={label}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-brand-light hover:text-brand-foreground hover:border-transparent"
               >
                 <Icon className="h-4 w-4" />
