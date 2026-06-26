@@ -16,7 +16,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-5 flex gap-3">
             {[
-              { Icon: Facebook, href: "#", label: "Facebook" },
+              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61578192783412", label: "Facebook" },
               { Icon: Instagram, href: "https://www.instagram.com/skywardssolution?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
               { Icon: Linkedin, href: "#", label: "LinkedIn" },
               { Icon: Twitter, href: "#", label: "Twitter" },
