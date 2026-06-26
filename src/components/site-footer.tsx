@@ -1,0 +1,81 @@
+import { Link } from "@tanstack/react-router";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import logo from "@/assets/logo.png";
+
+export function SiteFooter() {
+  return (
+    <footer className="bg-brand-dark text-brand-foreground">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <div>
+          <div className="flex items-center gap-3 rounded-2xl bg-white/95 p-3 w-fit">
+            <img src={logo} alt="Skywards Solution" className="h-14 w-auto" width={56} height={56} />
+          </div>
+          <p className="mt-5 text-sm leading-relaxed text-white/70">
+            Premium truck dispatch services for owner-operators and carriers across the United States.
+            Headquartered in Toledo, Ohio.
+          </p>
+          <div className="mt-5 flex gap-3">
+            {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                aria-label="Social link"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-brand-light hover:text-brand-foreground hover:border-transparent"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
+            <li><Link to="/" className="hover:text-white">Home</Link></li>
+            <li><Link to="/about" className="hover:text-white">About Us</Link></li>
+            <li><Link to="/services" className="hover:text-white">Services</Link></li>
+            <li><Link to="/carrier-setup" className="hover:text-white">Carrier Setup</Link></li>
+            <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
+            <li>Dry Van Dispatch</li>
+            <li>Reefer Dispatch</li>
+            <li>Flatbed Dispatch</li>
+            <li>Load Booking</li>
+            <li>Rate Negotiation</li>
+            <li>24/7 Support</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Contact</h3>
+          <ul className="mt-5 space-y-4 text-sm text-white/80">
+            <li className="flex items-start gap-3">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-light" />
+              <span>317 Locust St, Toledo, OH 43604</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-light" />
+              <a href="tel:+16142090850" className="hover:text-white">(614) 209-0850</a>
+            </li>
+            <li className="flex items-start gap-3">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-light" />
+              <a href="mailto:sam@skywardssolution.com" className="hover:text-white">sam@skywardssolution.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-white/60 sm:flex-row sm:px-6 lg:px-8">
+          <p>© {new Date().getFullYear()} Skywards Solution. All rights reserved.</p>
+          <p>Toledo, Ohio · Serving the Entire United States</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
