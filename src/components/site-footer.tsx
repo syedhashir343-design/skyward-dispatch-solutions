@@ -18,14 +18,13 @@ export function SiteFooter() {
             {[
               { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61578192783412", label: "Facebook" },
               { Icon: Instagram, href: "https://www.instagram.com/skywardssolution?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
-              { Icon: Linkedin, href: "#", label: "LinkedIn" },
-              { Icon: Twitter, href: "#", label: "Twitter" },
+              { Icon: Linkedin, href: "https://www.linkedin.com/company/skywards-solution/", label: "LinkedIn" },
             ].map(({ Icon, href, label }, i) => (
               <a
                 key={i}
                 href={href}
-                target={href !== "#" ? "_blank" : undefined}
-                rel={href !== "#" ? "noopener noreferrer" : undefined}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:bg-brand-light hover:text-brand-foreground hover:border-transparent"
               >
