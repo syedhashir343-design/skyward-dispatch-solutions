@@ -59,29 +59,52 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
+  /* Skywards Solution palette — deep navy + bright sky blue from the logo */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.18 0.05 256);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.18 0.05 256);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.18 0.05 256);
+  --primary: oklch(0.30 0.10 252);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.96 0.015 240);
+  --secondary-foreground: oklch(0.30 0.10 252);
+  --muted: oklch(0.96 0.015 240);
+  --muted-foreground: oklch(0.50 0.03 250);
+  --accent: oklch(0.62 0.16 240);
+  --accent-foreground: oklch(0.99 0.005 250);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --border: oklch(0.92 0.012 250);
+  --input: oklch(0.92 0.012 250);
+  --ring: oklch(0.62 0.16 240);
+  /* Brand tokens */
+  --brand: oklch(0.30 0.10 252);          /* deep navy */
+  --brand-dark: oklch(0.22 0.09 254);
+  --brand-light: oklch(0.62 0.16 240);    /* sky blue */
+  --brand-foreground: oklch(0.99 0.005 250);
+  --surface: oklch(0.99 0.006 240);
+  --surface-muted: oklch(0.96 0.014 240);
+  /* Gradients & shadows */
+  --gradient-brand: linear-gradient(135deg, oklch(0.22 0.09 254) 0%, oklch(0.32 0.12 250) 45%, oklch(0.62 0.16 240) 100%);
+  --gradient-sky: linear-gradient(180deg, oklch(0.98 0.01 240) 0%, oklch(0.92 0.04 240) 100%);
+  --gradient-hero-overlay: linear-gradient(110deg, oklch(0.18 0.07 254 / 0.92) 0%, oklch(0.22 0.09 252 / 0.78) 45%, oklch(0.32 0.12 248 / 0.55) 100%);
+  --shadow-elegant: 0 20px 50px -20px color-mix(in oklab, oklch(0.30 0.10 252) 40%, transparent);
+  --shadow-soft: 0 8px 24px -10px color-mix(in oklab, oklch(0.30 0.10 252) 25%, transparent);
+  --shadow-glow: 0 0 60px color-mix(in oklab, oklch(0.62 0.16 240) 35%, transparent);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +163,57 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility bg-gradient-sky {
+  background-image: var(--gradient-sky);
+}
+
+@utility text-gradient-brand {
+  background-image: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility shadow-elegant {
+  box-shadow: var(--shadow-elegant);
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility hero-overlay {
+  background-image: var(--gradient-hero-overlay);
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@utility animate-float {
+  animation: float-slow 6s ease-in-out infinite;
 }
