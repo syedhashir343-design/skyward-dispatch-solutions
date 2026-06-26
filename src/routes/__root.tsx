@@ -84,9 +84,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Skywards Solution is a Toledo, Ohio based truck dispatch company helping owner-operators across the USA with load booking, rate negotiation, and 24/7 dispatch support." },
       { name: "author", content: "Skywards Solution" },
       { property: "og:title", content: "Skywards Solution — Truck Dispatch Services USA" },
-      { property: "og:description", content: "Reliable nationwide truck dispatch services for owner-operators and carriers. Load booking, rate negotiation, broker communication and paperwork support." },
+      { property: "og:description", content: "Skywards Solution is a Toledo, Ohio based truck dispatch company helping owner-operators across the USA with load booking, rate negotiation, and 24/7 dispatch support." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Skywards Solution — Truck Dispatch Services USA" },
+      { name: "twitter:description", content: "Skywards Solution is a Toledo, Ohio based truck dispatch company helping owner-operators across the USA with load booking, rate negotiation, and 24/7 dispatch support." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ccc2ec5b-2663-46d2-ab1e-9eb575739376/id-preview-5a425a9a--588233b0-939b-4095-b0cc-305c6f436f17.lovable.app-1782510557779.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ccc2ec5b-2663-46d2-ab1e-9eb575739376/id-preview-5a425a9a--588233b0-939b-4095-b0cc-305c6f436f17.lovable.app-1782510557779.png" },
     ],
     links: [
       {
