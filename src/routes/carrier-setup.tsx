@@ -21,7 +21,7 @@ export const Route = createFileRoute("/carrier-setup")({
       { property: "og:type", content: "website" },
     ],
   }),
-  component: CarrierSetup;
+  component: CarrierSetup,
 });
 
 const truckTypes = [
