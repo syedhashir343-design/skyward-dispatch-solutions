@@ -363,8 +363,7 @@ function Index() {
               Straight answers from the dispatch desk.
             </h2>
             <p className="mt-5 text-lg text-muted-foreground">
-              Still curious? Call <a href="tel:+16142090850" className="text-brand font-semibold">(614) 209-0850</a> or
-              email <a href="mailto:sam@skywardssolution.com" className="text-brand font-semibold">sam@skywardssolution.com</a>
+              Still curious? Call <a href="tel:+16142090850" className="text-brand font-semibold">(614) 209-0850</a> or email <a href="mailto:sam@skywardssolution.com" className="text-brand font-semibold">sam@skywardssolution.com</a>
             </p>
           </div>
           <div className="space-y-3">
