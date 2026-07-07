@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Mail, Phone, ShieldCheck, Truck } from "lucide-react";
 import { toast } from "sonner";
 
@@ -36,33 +36,55 @@ const truckTypes = [
 
 function CarrierSetup() {
   const [submitting, setSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submitting) return;
     setSubmitting(true);
     const form = e.currentTarget;
     const data = new FormData(form);
-    const fullName = data.get("fullName") as string;
+    const payload = {
+      fullName: String(data.get("fullName") ?? "").trim(),
+      company: String(data.get("company") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      mc: String(data.get("mc") ?? "").trim(),
+      dot: String(data.get("dot") ?? "").trim(),
+      truckType: String(data.get("truckType") ?? "").trim(),
+      lanes: String(data.get("lanes") ?? "").trim(),
+      notes: String(data.get("notes") ?? "").trim(),
+    };
 
-    // Compose a mailto with the form contents so the form works without a backend.
-    const lines = [
-      `Full Name: ${data.get("fullName")}`,
-      `Company: ${data.get("company")}`,
-      `Phone: ${data.get("phone")}`,
-      `Email: ${data.get("email")}`,
-      `MC Number: ${data.get("mc")}`,
-      `DOT Number: ${data.get("dot")}`,
-      `Truck Type: ${data.get("truckType")}`,
-      `Preferred Lanes: ${data.get("lanes")}`,
-      `Notes: ${data.get("notes")}`,
-    ].join("\n");
+    try {
+      const res = await fetch("/api/public/carrier-setup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const subject = encodeURIComponent(`Carrier Setup — ${fullName}`);
-    const body = encodeURIComponent(lines);
-    window.location.href = `mailto:sam@skywardssolution.com?subject=${subject}&body=${body}`;
+      if (!res.ok) {
+        let message = "Something went wrong. Please try again or call us.";
+        try {
+          const body = await res.json();
+          if (body?.error) message = String(body.error);
+        } catch {
+          /* ignore */
+        }
+        toast.error(message);
+        return;
+      }
 
-    toast.success("Thanks! Your email client is opening to finalize submission.");
-    setTimeout(() => setSubmitting(false), 1000);
+      toast.success(
+        "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.",
+      );
+      formRef.current?.reset();
+    } catch (err) {
+      console.error("Carrier setup submit failed:", err);
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -86,7 +108,7 @@ function CarrierSetup() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
           {/* FORM */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-soft sm:p-10">
-            <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+            <form ref={formRef} onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
               <Field name="fullName" label="Full Name" required />
               <Field name="company" label="Company Name" required />
               <Field name="phone" label="Phone Number" type="tel" required />
