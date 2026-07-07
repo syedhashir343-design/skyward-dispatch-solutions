@@ -14,6 +14,7 @@ const submissionSchema = z.object({
 });
 
 const NOTIFY_TO = "sam@skywardssolution.com";
+const FROM_EMAIL = "Skywards Solution <noreply@skywardssolution.com>";
 
 function escapeHtml(v: string) {
   return v
@@ -26,8 +27,7 @@ function escapeHtml(v: string) {
 async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.warn("[carrier-setup] RESEND_API_KEY not set — skipping email notification");
-    return;
+    throw new Error("RESEND_API_KEY is not configured");
   }
 
   const rows = [
@@ -54,6 +54,8 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
     </table>
   `;
 
+  console.info(`[carrier-setup] sending Resend notification to: ${NOTIFY_TO}`);
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -61,7 +63,7 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      from: "Skywards Solution <notify@skywardssolution.com>",
+      from: FROM_EMAIL,
       to: [NOTIFY_TO],
       reply_to: payload.email,
       subject: `Carrier Setup — ${payload.fullName} (${payload.company})`,
@@ -72,7 +74,11 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
   if (!res.ok) {
     const body = await res.text();
     console.error(`[carrier-setup] Resend send failed [${res.status}]: ${body}`);
+    throw new Error(`Resend send failed [${res.status}]`);
   }
+
+  const body = await res.json().catch(() => null);
+  console.info(`[carrier-setup] Resend accepted notification for ${NOTIFY_TO}`, body?.id ? { id: body.id } : undefined);
 }
 
 export const Route = createFileRoute("/api/public/carrier-setup")({
@@ -113,12 +119,7 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
           return Response.json({ error: "Failed to save submission" }, { status: 500 });
         }
 
-        try {
-          await sendNotificationEmail(data);
-        } catch (err) {
-          console.error("[carrier-setup] email send threw:", err);
-          // Email failure must not fail the submission — data is already saved.
-        }
+        await sendNotificationEmail(data);
 
         return Response.json({ ok: true });
       },
