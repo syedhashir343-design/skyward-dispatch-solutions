@@ -14,7 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      carrier_submissions: {
+        Row: {
+          company: string
+          created_at: string
+          dot_number: string
+          email: string
+          full_name: string
+          id: string
+          mc_number: string
+          notes: string | null
+          phone: string
+          preferred_lanes: string | null
+          truck_type: string
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          dot_number: string
+          email: string
+          full_name: string
+          id?: string
+          mc_number: string
+          notes?: string | null
+          phone: string
+          preferred_lanes?: string | null
+          truck_type: string
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          dot_number?: string
+          email?: string
+          full_name?: string
+          id?: string
+          mc_number?: string
+          notes?: string | null
+          phone?: string
+          preferred_lanes?: string | null
+          truck_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
