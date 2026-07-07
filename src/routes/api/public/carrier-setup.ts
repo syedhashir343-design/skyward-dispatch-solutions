@@ -13,11 +13,7 @@ const submissionSchema = z.object({
   notes: z.string().trim().max(2000).optional().default(""),
 });
 
-// Resend free tier only allows sending to the account owner's email address
-// until a sending domain is verified at resend.com/domains. Once
-// skywardssolution.com is verified, change this back to sam@skywardssolution.com
-// and set `from` below to notify@skywardssolution.com.
-const NOTIFY_TO = "syedhashir343@gmail.com";
+const NOTIFY_TO = "sam@skywardssolution.com";
 
 function escapeHtml(v: string) {
   return v
@@ -65,7 +61,7 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      from: "Skywards Solution <onboarding@resend.dev>",
+      from: "Skywards Solution <notify@skywardssolution.com>",
       to: [NOTIFY_TO],
       reply_to: payload.email,
       subject: `Carrier Setup — ${payload.fullName} (${payload.company})`,
