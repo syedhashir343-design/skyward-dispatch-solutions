@@ -13,7 +13,11 @@ const submissionSchema = z.object({
   notes: z.string().trim().max(2000).optional().default(""),
 });
 
-const NOTIFY_TO = "sam@skywardssolution.com";
+// Resend free tier only allows sending to the account owner's email address
+// until a sending domain is verified at resend.com/domains. Once
+// skywardssolution.com is verified, change this back to sam@skywardssolution.com
+// and set `from` below to notify@skywardssolution.com.
+const NOTIFY_TO = "syedhashir343@gmail.com";
 
 function escapeHtml(v: string) {
   return v
