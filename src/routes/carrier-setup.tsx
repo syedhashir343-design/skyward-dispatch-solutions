@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Mail, Phone, ShieldCheck, Truck } from "lucide-react";
 import { toast } from "sonner";
 
@@ -36,12 +36,23 @@ const truckTypes = [
 
 function CarrierSetup() {
   const [submitting, setSubmitting] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    | { type: "success"; message: string }
+    | { type: "error"; message: string }
+    | null
+  >(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
+    setSubmitStatus(null);
     const form = e.currentTarget;
     const data = new FormData(form);
     const payload = {
@@ -64,24 +75,28 @@ function CarrierSetup() {
       });
 
       if (!res.ok) {
-        let message = "Something went wrong. Please try again or call us.";
+        let message = "Submission failed. Please try again or call us.";
         try {
           const body = await res.json();
           if (body?.error) message = String(body.error);
         } catch {
           /* ignore */
         }
+        setSubmitStatus({ type: "error", message });
         toast.error(message);
         return;
       }
 
-      toast.success(
-        "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.",
-      );
+      const successMessage =
+        "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.";
+      setSubmitStatus({ type: "success", message: successMessage });
+      toast.success(successMessage);
       formRef.current?.reset();
     } catch (err) {
       console.error("Carrier setup submit failed:", err);
-      toast.error("Network error. Please check your connection and try again.");
+      const message = "Network error. Please check your connection and try again.";
+      setSubmitStatus({ type: "error", message });
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }
@@ -108,7 +123,13 @@ function CarrierSetup() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
           {/* FORM */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-soft sm:p-10">
-            <form ref={formRef} onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+            <form
+              ref={formRef}
+              onSubmit={onSubmit}
+              action="/api/public/carrier-setup"
+              method="post"
+              className="grid gap-5 sm:grid-cols-2"
+            >
               <Field name="fullName" label="Full Name" required />
               <Field name="company" label="Company Name" required />
               <Field name="phone" label="Phone Number" type="tel" required />
@@ -149,11 +170,25 @@ function CarrierSetup() {
 
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || !ready}
                 className="bg-gradient-brand text-brand-foreground shadow-elegant inline-flex h-14 items-center justify-center rounded-full px-8 text-base font-semibold transition-transform hover:scale-[1.02] disabled:opacity-60 sm:col-span-2"
               >
                 {submitting ? "Submitting…" : "Submit Carrier Setup"}
               </button>
+
+              {submitStatus && (
+                <div
+                  className={`rounded-xl border px-4 py-3 text-sm font-medium sm:col-span-2 ${
+                    submitStatus.type === "success"
+                      ? "border-brand-light/40 bg-brand-light/10 text-foreground"
+                      : "border-destructive/40 bg-destructive/10 text-destructive"
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {submitStatus.message}
+                </div>
+              )}
             </form>
           </div>
 
@@ -191,9 +226,9 @@ function CarrierSetup() {
                 <a href="tel:+16142090850" className="flex items-center gap-3 text-foreground hover:text-brand">
                   <Phone className="h-4 w-4 text-brand-light" /> (614) 209-0850
                 </a>
-                <a href="mailto:sam@skywardssolution.com" className="flex items-center gap-3 text-foreground hover:text-brand">
+                <div className="flex items-center gap-3 text-foreground">
                   <Mail className="h-4 w-4 text-brand-light" /> sam@skywardssolution.com
-                </a>
+                </div>
               </div>
             </div>
           </aside>

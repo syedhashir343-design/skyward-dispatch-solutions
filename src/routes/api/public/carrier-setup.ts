@@ -15,6 +15,7 @@ const submissionSchema = z.object({
 
 const NOTIFY_TO = "sam@skywardssolution.com";
 const FROM_EMAIL = "Skywards Solution <noreply@skywardssolution.com>";
+const RESEND_EMAIL_ENDPOINT = "https://api.resend.com/emails";
 
 function escapeHtml(v: string) {
   return v
@@ -56,7 +57,7 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
 
   console.info(`[carrier-setup] sending Resend notification to: ${NOTIFY_TO}`);
 
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await fetch(RESEND_EMAIL_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -78,6 +79,10 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
   }
 
   const body = await res.json().catch(() => null);
+  if (!body?.id) {
+    console.error(`[carrier-setup] Resend response missing accepted email id for ${NOTIFY_TO}:`, body);
+    throw new Error("Resend did not confirm the email was accepted");
+  }
   console.info(`[carrier-setup] Resend accepted notification for ${NOTIFY_TO}`, body?.id ? { id: body.id } : undefined);
 }
 
@@ -119,7 +124,15 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
           return Response.json({ error: "Failed to save submission" }, { status: 500 });
         }
 
-        await sendNotificationEmail(data);
+        try {
+          await sendNotificationEmail(data);
+        } catch (emailError) {
+          console.error("[carrier-setup] notification email failed:", emailError);
+          return Response.json(
+            { error: "We could not send the carrier setup notification. Please try again." },
+            { status: 502 },
+          );
+        }
 
         return Response.json({ ok: true });
       },

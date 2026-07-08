@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -103,7 +104,90 @@ const faqs = [
   },
 ];
 
+const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
+
+const featuredLanes = [
+  {
+    lane: "Toledo, OH → Dallas, TX",
+    miles: "1,128",
+    rpm: "$2.85",
+    gross: "$3,215",
+    note: "Strong southbound dry van demand",
+    lift: "+18%",
+  },
+  {
+    lane: "Columbus, OH → Atlanta, GA",
+    miles: "558",
+    rpm: "$3.10",
+    gross: "$1,730",
+    note: "Fast reload options into the Midwest",
+    lift: "+16%",
+  },
+  {
+    lane: "Detroit, MI → Nashville, TN",
+    miles: "533",
+    rpm: "$3.05",
+    gross: "$1,626",
+    note: "Balanced miles with steady broker volume",
+    lift: "+15%",
+  },
+  {
+    lane: "Chicago, IL → Charlotte, NC",
+    miles: "756",
+    rpm: "$2.92",
+    gross: "$2,208",
+    note: "High-volume lane with solid reloads",
+    lift: "+17%",
+  },
+  {
+    lane: "Indianapolis, IN → Tampa, FL",
+    miles: "990",
+    rpm: "$2.78",
+    gross: "$2,752",
+    note: "Long-haul run with warm-weather freight",
+    lift: "+14%",
+  },
+  {
+    lane: "Cleveland, OH → Kansas City, MO",
+    miles: "804",
+    rpm: "$2.95",
+    gross: "$2,372",
+    note: "Clean Midwest-to-plains routing",
+    lift: "+19%",
+  },
+];
+
+function getCurrentLane() {
+  const slot = Math.floor(Date.now() / TWO_HOURS_MS);
+  return featuredLanes[slot % featuredLanes.length];
+}
+
+function useFeaturedLane() {
+  const [lane, setLane] = useState(featuredLanes[0]);
+
+  useEffect(() => {
+    let timeoutId: number;
+
+    setLane(getCurrentLane());
+
+    const scheduleNextUpdate = () => {
+      const timeUntilNextSlot = TWO_HOURS_MS - (Date.now() % TWO_HOURS_MS) + 1000;
+      timeoutId = window.setTimeout(() => {
+        setLane(getCurrentLane());
+        scheduleNextUpdate();
+      }, timeUntilNextSlot);
+    };
+
+    scheduleNextUpdate();
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  return lane;
+}
+
 function Index() {
+  const featuredLane = useFeaturedLane();
+
   return (
     <>
       {/* HERO */}
@@ -164,24 +248,24 @@ function Index() {
             <div className="relative ml-auto w-full max-w-md">
               <div className="shadow-elegant rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl">
                 <div className="text-xs font-semibold uppercase tracking-wider text-brand-light">Today's lane</div>
-                <div className="mt-3 text-2xl font-bold text-white">Toledo, OH → Dallas, TX</div>
+                <div className="mt-3 text-2xl font-bold text-white">{featuredLane.lane}</div>
                 <div className="mt-4 grid grid-cols-3 gap-3 text-center">
                   <div className="rounded-xl bg-white/10 p-3">
                     <div className="text-xs text-white/60">Miles</div>
-                    <div className="text-lg font-semibold text-white">1,128</div>
+                    <div className="text-lg font-semibold text-white">{featuredLane.miles}</div>
                   </div>
                   <div className="rounded-xl bg-white/10 p-3">
                     <div className="text-xs text-white/60">RPM</div>
-                    <div className="text-lg font-semibold text-white">$2.85</div>
+                    <div className="text-lg font-semibold text-white">{featuredLane.rpm}</div>
                   </div>
                   <div className="rounded-xl bg-white/10 p-3">
                     <div className="text-xs text-white/60">Gross</div>
-                    <div className="text-lg font-semibold text-white">$3,215</div>
+                    <div className="text-lg font-semibold text-white">{featuredLane.gross}</div>
                   </div>
                 </div>
                 <div className="mt-6 flex items-center justify-between rounded-xl bg-brand-light/20 p-4 text-sm text-white">
-                  <span className="font-medium">Negotiated by Skywards</span>
-                  <span className="rounded-full bg-brand-light px-3 py-1 text-xs font-bold text-brand-dark">+18%</span>
+                  <span className="font-medium">{featuredLane.note}</span>
+                  <span className="rounded-full bg-brand-light px-3 py-1 text-xs font-bold text-brand-dark">{featuredLane.lift}</span>
                 </div>
               </div>
               <div className="bg-brand-light/30 absolute -inset-6 -z-10 rounded-[2rem] blur-3xl" />
@@ -363,7 +447,7 @@ function Index() {
               Straight answers from the dispatch desk.
             </h2>
             <p className="mt-5 text-lg text-muted-foreground">
-              Still curious? Call <a href="tel:+16142090850" className="text-brand font-semibold">(614) 209-0850</a> or email <a href="mailto:sam@skywardssolution.com" className="text-brand font-semibold">sam@skywardssolution.com</a>
+              Still curious? Call <a href="tel:+16142090850" className="text-brand font-semibold">(614) 209-0850</a> or email <span className="text-brand font-semibold">sam@skywardssolution.com</span>
             </p>
           </div>
           <div className="space-y-3">

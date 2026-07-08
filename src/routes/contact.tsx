@@ -44,7 +44,7 @@ function Contact() {
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {[
             { icon: Phone, title: "Phone", value: "(614) 209-0850", href: "tel:+16142090850" },
-            { icon: Mail, title: "Email", value: "sam@skywardssolution.com", href: "mailto:sam@skywardssolution.com" },
+            { icon: Mail, title: "Email", value: "sam@skywardssolution.com" },
             { icon: MapPin, title: "Office", value: "317 Locust St, Toledo, OH 43604" },
             { icon: Clock, title: "Hours", value: "Mon–Sun · 24/7 for carriers" },
           ].map((c) => (
