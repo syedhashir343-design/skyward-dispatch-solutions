@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Mail, Phone, ShieldCheck, Truck } from "lucide-react";
 import { toast } from "sonner";
 
@@ -36,7 +36,12 @@ const truckTypes = [
 
 function CarrierSetup() {
   const [submitting, setSubmitting] = useState(false);
+  const [ready, setReady] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -108,7 +113,13 @@ function CarrierSetup() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:px-8">
           {/* FORM */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-soft sm:p-10">
-            <form ref={formRef} onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+            <form
+              ref={formRef}
+              onSubmit={onSubmit}
+              action="/api/public/carrier-setup"
+              method="post"
+              className="grid gap-5 sm:grid-cols-2"
+            >
               <Field name="fullName" label="Full Name" required />
               <Field name="company" label="Company Name" required />
               <Field name="phone" label="Phone Number" type="tel" required />
@@ -149,7 +160,7 @@ function CarrierSetup() {
 
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || !ready}
                 className="bg-gradient-brand text-brand-foreground shadow-elegant inline-flex h-14 items-center justify-center rounded-full px-8 text-base font-semibold transition-transform hover:scale-[1.02] disabled:opacity-60 sm:col-span-2"
               >
                 {submitting ? "Submitting…" : "Submit Carrier Setup"}
