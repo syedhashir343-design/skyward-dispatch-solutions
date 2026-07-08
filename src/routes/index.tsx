@@ -163,10 +163,12 @@ function getCurrentLane() {
 }
 
 function useFeaturedLane() {
-  const [lane, setLane] = useState(getCurrentLane);
+  const [lane, setLane] = useState(featuredLanes[0]);
 
   useEffect(() => {
     let timeoutId: number;
+
+    setLane(getCurrentLane());
 
     const scheduleNextUpdate = () => {
       const timeUntilNextSlot = TWO_HOURS_MS - (Date.now() % TWO_HOURS_MS) + 1000;
