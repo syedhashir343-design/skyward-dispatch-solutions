@@ -37,6 +37,11 @@ const truckTypes = [
 function CarrierSetup() {
   const [submitting, setSubmitting] = useState(false);
   const [ready, setReady] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    | { type: "success"; message: string }
+    | { type: "error"; message: string }
+    | null
+  >(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -47,6 +52,7 @@ function CarrierSetup() {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
+    setSubmitStatus(null);
     const form = e.currentTarget;
     const data = new FormData(form);
     const payload = {
@@ -76,17 +82,21 @@ function CarrierSetup() {
         } catch {
           /* ignore */
         }
+        setSubmitStatus({ type: "error", message });
         toast.error(message);
         return;
       }
 
-      toast.success(
-        "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.",
-      );
+      const successMessage =
+        "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.";
+      setSubmitStatus({ type: "success", message: successMessage });
+      toast.success(successMessage);
       formRef.current?.reset();
     } catch (err) {
       console.error("Carrier setup submit failed:", err);
-      toast.error("Network error. Please check your connection and try again.");
+      const message = "Network error. Please check your connection and try again.";
+      setSubmitStatus({ type: "error", message });
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }
@@ -165,6 +175,20 @@ function CarrierSetup() {
               >
                 {submitting ? "Submitting…" : "Submit Carrier Setup"}
               </button>
+
+              {submitStatus && (
+                <div
+                  className={`rounded-xl border px-4 py-3 text-sm font-medium sm:col-span-2 ${
+                    submitStatus.type === "success"
+                      ? "border-brand-light/40 bg-brand-light/10 text-foreground"
+                      : "border-destructive/40 bg-destructive/10 text-destructive"
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {submitStatus.message}
+                </div>
+              )}
             </form>
           </div>
 
