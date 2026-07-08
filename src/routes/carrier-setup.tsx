@@ -64,7 +64,7 @@ function CarrierSetup() {
       });
 
       if (!res.ok) {
-        let message = "Something went wrong. Please try again or call us.";
+        let message = "Submission failed. Please try again or call us.";
         try {
           const body = await res.json();
           if (body?.error) message = String(body.error);
@@ -191,9 +191,9 @@ function CarrierSetup() {
                 <a href="tel:+16142090850" className="flex items-center gap-3 text-foreground hover:text-brand">
                   <Phone className="h-4 w-4 text-brand-light" /> (614) 209-0850
                 </a>
-                <a href="mailto:sam@skywardssolution.com" className="flex items-center gap-3 text-foreground hover:text-brand">
+                <div className="flex items-center gap-3 text-foreground">
                   <Mail className="h-4 w-4 text-brand-light" /> sam@skywardssolution.com
-                </a>
+                </div>
               </div>
             </div>
           </aside>
