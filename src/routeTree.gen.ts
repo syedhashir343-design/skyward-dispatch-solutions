@@ -9,6 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TruckDispatchPhoenixRouteImport } from './routes/truck-dispatch-phoenix'
+import { Route as TruckDispatchNashvilleRouteImport } from './routes/truck-dispatch-nashville'
+import { Route as TruckDispatchMiamiRouteImport } from './routes/truck-dispatch-miami'
+import { Route as TruckDispatchMemphisRouteImport } from './routes/truck-dispatch-memphis'
+import { Route as TruckDispatchLosAngelesRouteImport } from './routes/truck-dispatch-los-angeles'
+import { Route as TruckDispatchKansasCityRouteImport } from './routes/truck-dispatch-kansas-city'
+import { Route as TruckDispatchIndianapolisRouteImport } from './routes/truck-dispatch-indianapolis'
+import { Route as TruckDispatchHoustonRouteImport } from './routes/truck-dispatch-houston'
+import { Route as TruckDispatchDenverRouteImport } from './routes/truck-dispatch-denver'
+import { Route as TruckDispatchDallasRouteImport } from './routes/truck-dispatch-dallas'
+import { Route as TruckDispatchColumbusRouteImport } from './routes/truck-dispatch-columbus'
+import { Route as TruckDispatchChicagoRouteImport } from './routes/truck-dispatch-chicago'
+import { Route as TruckDispatchCharlotteRouteImport } from './routes/truck-dispatch-charlotte'
+import { Route as TruckDispatchAtlantaRouteImport } from './routes/truck-dispatch-atlanta'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StepDeckDispatchRouteImport } from './routes/step-deck-dispatch'
 import { Route as SmallFleetDispatchRouteImport } from './routes/small-fleet-dispatch'
@@ -19,6 +33,7 @@ import { Route as ReeferDispatchRouteImport } from './routes/reefer-dispatch'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PowerOnlyDispatchRouteImport } from './routes/power-only-dispatch'
 import { Route as OwnerOperatorDispatchRouteImport } from './routes/owner-operator-dispatch'
+import { Route as LocationsRouteImport } from './routes/locations'
 import { Route as HotshotDispatchRouteImport } from './routes/hotshot-dispatch'
 import { Route as FlatbedDispatchRouteImport } from './routes/flatbed-dispatch'
 import { Route as DryVanDispatchRouteImport } from './routes/dry-van-dispatch'
@@ -34,6 +49,77 @@ import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
 import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
+const TruckDispatchPhoenixRoute = TruckDispatchPhoenixRouteImport.update({
+  id: '/truck-dispatch-phoenix',
+  path: '/truck-dispatch-phoenix',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchNashvilleRoute = TruckDispatchNashvilleRouteImport.update({
+  id: '/truck-dispatch-nashville',
+  path: '/truck-dispatch-nashville',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchMiamiRoute = TruckDispatchMiamiRouteImport.update({
+  id: '/truck-dispatch-miami',
+  path: '/truck-dispatch-miami',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchMemphisRoute = TruckDispatchMemphisRouteImport.update({
+  id: '/truck-dispatch-memphis',
+  path: '/truck-dispatch-memphis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchLosAngelesRoute = TruckDispatchLosAngelesRouteImport.update({
+  id: '/truck-dispatch-los-angeles',
+  path: '/truck-dispatch-los-angeles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchKansasCityRoute = TruckDispatchKansasCityRouteImport.update({
+  id: '/truck-dispatch-kansas-city',
+  path: '/truck-dispatch-kansas-city',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchIndianapolisRoute =
+  TruckDispatchIndianapolisRouteImport.update({
+    id: '/truck-dispatch-indianapolis',
+    path: '/truck-dispatch-indianapolis',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TruckDispatchHoustonRoute = TruckDispatchHoustonRouteImport.update({
+  id: '/truck-dispatch-houston',
+  path: '/truck-dispatch-houston',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchDenverRoute = TruckDispatchDenverRouteImport.update({
+  id: '/truck-dispatch-denver',
+  path: '/truck-dispatch-denver',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchDallasRoute = TruckDispatchDallasRouteImport.update({
+  id: '/truck-dispatch-dallas',
+  path: '/truck-dispatch-dallas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchColumbusRoute = TruckDispatchColumbusRouteImport.update({
+  id: '/truck-dispatch-columbus',
+  path: '/truck-dispatch-columbus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchChicagoRoute = TruckDispatchChicagoRouteImport.update({
+  id: '/truck-dispatch-chicago',
+  path: '/truck-dispatch-chicago',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchCharlotteRoute = TruckDispatchCharlotteRouteImport.update({
+  id: '/truck-dispatch-charlotte',
+  path: '/truck-dispatch-charlotte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchAtlantaRoute = TruckDispatchAtlantaRouteImport.update({
+  id: '/truck-dispatch-atlanta',
+  path: '/truck-dispatch-atlanta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -82,6 +168,11 @@ const PowerOnlyDispatchRoute = PowerOnlyDispatchRouteImport.update({
 const OwnerOperatorDispatchRoute = OwnerOperatorDispatchRouteImport.update({
   id: '/owner-operator-dispatch',
   path: '/owner-operator-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsRoute = LocationsRouteImport.update({
+  id: '/locations',
+  path: '/locations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HotshotDispatchRoute = HotshotDispatchRouteImport.update({
@@ -166,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -176,6 +268,20 @@ export interface FileRoutesByFullPath {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
+  '/truck-dispatch-charlotte': typeof TruckDispatchCharlotteRoute
+  '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
+  '/truck-dispatch-columbus': typeof TruckDispatchColumbusRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
+  '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
+  '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
+  '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
+  '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -192,6 +298,7 @@ export interface FileRoutesByTo {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -202,6 +309,20 @@ export interface FileRoutesByTo {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
+  '/truck-dispatch-charlotte': typeof TruckDispatchCharlotteRoute
+  '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
+  '/truck-dispatch-columbus': typeof TruckDispatchColumbusRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
+  '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
+  '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
+  '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
+  '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -219,6 +340,7 @@ export interface FileRoutesById {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -229,6 +351,20 @@ export interface FileRoutesById {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
+  '/truck-dispatch-charlotte': typeof TruckDispatchCharlotteRoute
+  '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
+  '/truck-dispatch-columbus': typeof TruckDispatchColumbusRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
+  '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
+  '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
+  '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
+  '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -247,6 +383,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -257,6 +394,20 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
+    | '/truck-dispatch-charlotte'
+    | '/truck-dispatch-chicago'
+    | '/truck-dispatch-columbus'
+    | '/truck-dispatch-dallas'
+    | '/truck-dispatch-denver'
+    | '/truck-dispatch-houston'
+    | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
+    | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-memphis'
+    | '/truck-dispatch-miami'
+    | '/truck-dispatch-nashville'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -273,6 +424,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -283,6 +435,20 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
+    | '/truck-dispatch-charlotte'
+    | '/truck-dispatch-chicago'
+    | '/truck-dispatch-columbus'
+    | '/truck-dispatch-dallas'
+    | '/truck-dispatch-denver'
+    | '/truck-dispatch-houston'
+    | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
+    | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-memphis'
+    | '/truck-dispatch-miami'
+    | '/truck-dispatch-nashville'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -299,6 +465,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -309,6 +476,20 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
+    | '/truck-dispatch-charlotte'
+    | '/truck-dispatch-chicago'
+    | '/truck-dispatch-columbus'
+    | '/truck-dispatch-dallas'
+    | '/truck-dispatch-denver'
+    | '/truck-dispatch-houston'
+    | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
+    | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-memphis'
+    | '/truck-dispatch-miami'
+    | '/truck-dispatch-nashville'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -326,6 +507,7 @@ export interface RootRouteChildren {
   DryVanDispatchRoute: typeof DryVanDispatchRoute
   FlatbedDispatchRoute: typeof FlatbedDispatchRoute
   HotshotDispatchRoute: typeof HotshotDispatchRoute
+  LocationsRoute: typeof LocationsRoute
   OwnerOperatorDispatchRoute: typeof OwnerOperatorDispatchRoute
   PowerOnlyDispatchRoute: typeof PowerOnlyDispatchRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -336,6 +518,20 @@ export interface RootRouteChildren {
   SmallFleetDispatchRoute: typeof SmallFleetDispatchRoute
   StepDeckDispatchRoute: typeof StepDeckDispatchRoute
   TermsRoute: typeof TermsRoute
+  TruckDispatchAtlantaRoute: typeof TruckDispatchAtlantaRoute
+  TruckDispatchCharlotteRoute: typeof TruckDispatchCharlotteRoute
+  TruckDispatchChicagoRoute: typeof TruckDispatchChicagoRoute
+  TruckDispatchColumbusRoute: typeof TruckDispatchColumbusRoute
+  TruckDispatchDallasRoute: typeof TruckDispatchDallasRoute
+  TruckDispatchDenverRoute: typeof TruckDispatchDenverRoute
+  TruckDispatchHoustonRoute: typeof TruckDispatchHoustonRoute
+  TruckDispatchIndianapolisRoute: typeof TruckDispatchIndianapolisRoute
+  TruckDispatchKansasCityRoute: typeof TruckDispatchKansasCityRoute
+  TruckDispatchLosAngelesRoute: typeof TruckDispatchLosAngelesRoute
+  TruckDispatchMemphisRoute: typeof TruckDispatchMemphisRoute
+  TruckDispatchMiamiRoute: typeof TruckDispatchMiamiRoute
+  TruckDispatchNashvilleRoute: typeof TruckDispatchNashvilleRoute
+  TruckDispatchPhoenixRoute: typeof TruckDispatchPhoenixRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
@@ -344,6 +540,104 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/truck-dispatch-phoenix': {
+      id: '/truck-dispatch-phoenix'
+      path: '/truck-dispatch-phoenix'
+      fullPath: '/truck-dispatch-phoenix'
+      preLoaderRoute: typeof TruckDispatchPhoenixRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-nashville': {
+      id: '/truck-dispatch-nashville'
+      path: '/truck-dispatch-nashville'
+      fullPath: '/truck-dispatch-nashville'
+      preLoaderRoute: typeof TruckDispatchNashvilleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-miami': {
+      id: '/truck-dispatch-miami'
+      path: '/truck-dispatch-miami'
+      fullPath: '/truck-dispatch-miami'
+      preLoaderRoute: typeof TruckDispatchMiamiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-memphis': {
+      id: '/truck-dispatch-memphis'
+      path: '/truck-dispatch-memphis'
+      fullPath: '/truck-dispatch-memphis'
+      preLoaderRoute: typeof TruckDispatchMemphisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-los-angeles': {
+      id: '/truck-dispatch-los-angeles'
+      path: '/truck-dispatch-los-angeles'
+      fullPath: '/truck-dispatch-los-angeles'
+      preLoaderRoute: typeof TruckDispatchLosAngelesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-kansas-city': {
+      id: '/truck-dispatch-kansas-city'
+      path: '/truck-dispatch-kansas-city'
+      fullPath: '/truck-dispatch-kansas-city'
+      preLoaderRoute: typeof TruckDispatchKansasCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-indianapolis': {
+      id: '/truck-dispatch-indianapolis'
+      path: '/truck-dispatch-indianapolis'
+      fullPath: '/truck-dispatch-indianapolis'
+      preLoaderRoute: typeof TruckDispatchIndianapolisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-houston': {
+      id: '/truck-dispatch-houston'
+      path: '/truck-dispatch-houston'
+      fullPath: '/truck-dispatch-houston'
+      preLoaderRoute: typeof TruckDispatchHoustonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-denver': {
+      id: '/truck-dispatch-denver'
+      path: '/truck-dispatch-denver'
+      fullPath: '/truck-dispatch-denver'
+      preLoaderRoute: typeof TruckDispatchDenverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-dallas': {
+      id: '/truck-dispatch-dallas'
+      path: '/truck-dispatch-dallas'
+      fullPath: '/truck-dispatch-dallas'
+      preLoaderRoute: typeof TruckDispatchDallasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-columbus': {
+      id: '/truck-dispatch-columbus'
+      path: '/truck-dispatch-columbus'
+      fullPath: '/truck-dispatch-columbus'
+      preLoaderRoute: typeof TruckDispatchColumbusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-chicago': {
+      id: '/truck-dispatch-chicago'
+      path: '/truck-dispatch-chicago'
+      fullPath: '/truck-dispatch-chicago'
+      preLoaderRoute: typeof TruckDispatchChicagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-charlotte': {
+      id: '/truck-dispatch-charlotte'
+      path: '/truck-dispatch-charlotte'
+      fullPath: '/truck-dispatch-charlotte'
+      preLoaderRoute: typeof TruckDispatchCharlotteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-atlanta': {
+      id: '/truck-dispatch-atlanta'
+      path: '/truck-dispatch-atlanta'
+      fullPath: '/truck-dispatch-atlanta'
+      preLoaderRoute: typeof TruckDispatchAtlantaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -412,6 +706,13 @@ declare module '@tanstack/react-router' {
       path: '/owner-operator-dispatch'
       fullPath: '/owner-operator-dispatch'
       preLoaderRoute: typeof OwnerOperatorDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations': {
+      id: '/locations'
+      path: '/locations'
+      fullPath: '/locations'
+      preLoaderRoute: typeof LocationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hotshot-dispatch': {
@@ -526,6 +827,7 @@ const rootRouteChildren: RootRouteChildren = {
   DryVanDispatchRoute: DryVanDispatchRoute,
   FlatbedDispatchRoute: FlatbedDispatchRoute,
   HotshotDispatchRoute: HotshotDispatchRoute,
+  LocationsRoute: LocationsRoute,
   OwnerOperatorDispatchRoute: OwnerOperatorDispatchRoute,
   PowerOnlyDispatchRoute: PowerOnlyDispatchRoute,
   PrivacyRoute: PrivacyRoute,
@@ -536,6 +838,20 @@ const rootRouteChildren: RootRouteChildren = {
   SmallFleetDispatchRoute: SmallFleetDispatchRoute,
   StepDeckDispatchRoute: StepDeckDispatchRoute,
   TermsRoute: TermsRoute,
+  TruckDispatchAtlantaRoute: TruckDispatchAtlantaRoute,
+  TruckDispatchCharlotteRoute: TruckDispatchCharlotteRoute,
+  TruckDispatchChicagoRoute: TruckDispatchChicagoRoute,
+  TruckDispatchColumbusRoute: TruckDispatchColumbusRoute,
+  TruckDispatchDallasRoute: TruckDispatchDallasRoute,
+  TruckDispatchDenverRoute: TruckDispatchDenverRoute,
+  TruckDispatchHoustonRoute: TruckDispatchHoustonRoute,
+  TruckDispatchIndianapolisRoute: TruckDispatchIndianapolisRoute,
+  TruckDispatchKansasCityRoute: TruckDispatchKansasCityRoute,
+  TruckDispatchLosAngelesRoute: TruckDispatchLosAngelesRoute,
+  TruckDispatchMemphisRoute: TruckDispatchMemphisRoute,
+  TruckDispatchMiamiRoute: TruckDispatchMiamiRoute,
+  TruckDispatchNashvilleRoute: TruckDispatchNashvilleRoute,
+  TruckDispatchPhoenixRoute: TruckDispatchPhoenixRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
