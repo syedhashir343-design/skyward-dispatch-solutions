@@ -30,19 +30,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: `Missing fields: ${missing.join(", ")}` });
   }
 
-  const {
-    SMTP_HOST = "smtp.gmail.com",
-    SMTP_PORT = "465",
-    SMTP_SECURE = "true",
-    SMTP_USER,
-    SMTP_PASS,
-    CONTACT_TO = "sam@skywardssolution.com",
-  } = process.env;
-
-  if (!SMTP_USER || !SMTP_PASS) {
-    console.error("[carrier-email] Missing SMTP_USER or SMTP_PASS env vars");
+  if (!process.env.SMTP_HOST || !process.env.SMTP_PORT || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error("[carrier-email] Missing required SMTP env vars");
     return res.status(500).json({ error: "Email service is not configured." });
   }
+
+  console.log({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE,
+    user: process.env.SMTP_USER,
+  });
 
   const rows = [
     ["Full Name", body.fullName],
@@ -68,20 +66,20 @@ export default async function handler(req, res) {
     </table>
   `;
 
-  const port = Number(SMTP_PORT);
-  const secure = String(SMTP_SECURE).toLowerCase() === "true" || port === 465;
-
   const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
   });
 
   try {
     const info = await transporter.sendMail({
-      from: `Skywards Solution <${SMTP_USER}>`,
-      to: CONTACT_TO,
+      from: `Skywards Solution <${process.env.SMTP_USER}>`,
+      to: process.env.CONTACT_TO || "sam@skywardssolution.com",
       replyTo: body.email,
       subject: "New Carrier Setup Submission",
       html,
