@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CarrierSetupRouteImport } from './routes/carrier-setup'
 import { Route as AboutRouteImport } from './routes/about'
@@ -46,6 +47,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/carrier-setup'
     | '/contact'
+    | '/cookies'
     | '/privacy'
     | '/services'
     | '/sitemap'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/carrier-setup'
     | '/contact'
+    | '/cookies'
     | '/privacy'
     | '/services'
     | '/sitemap'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/carrier-setup'
     | '/contact'
+    | '/cookies'
     | '/privacy'
     | '/services'
     | '/sitemap'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CarrierSetupRoute: typeof CarrierSetupRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   SitemapRoute: typeof SitemapRoute
@@ -234,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -300,6 +320,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CarrierSetupRoute: CarrierSetupRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   SitemapRoute: SitemapRoute,
