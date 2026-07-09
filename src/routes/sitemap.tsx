@@ -1,0 +1,72 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/sitemap")({
+  head: () => ({
+    meta: [
+      { title: "Sitemap — Skywards Solution" },
+      { name: "description", content: "Full sitemap of Skywards Solution — every public page on our truck dispatch website." },
+      { property: "og:title", content: "Sitemap — Skywards Solution" },
+      { property: "og:description", content: "Full sitemap of Skywards Solution." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/sitemap" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.skywardssolution.com/sitemap" }],
+  }),
+  component: SitemapPage,
+});
+
+const sections: { heading: string; links: { to: string; label: string }[] }[] = [
+  {
+    heading: "Main Pages",
+    links: [
+      { to: "/", label: "Home" },
+      { to: "/about", label: "About Us" },
+      { to: "/services", label: "Services" },
+      { to: "/carrier-setup", label: "Carrier Setup" },
+      { to: "/contact", label: "Contact" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { to: "/privacy", label: "Privacy Policy" },
+      { to: "/terms", label: "Terms of Service" },
+      { to: "/cookies", label: "Cookie Policy" },
+    ],
+  },
+];
+
+function SitemapPage() {
+  return (
+    <section className="mx-auto max-w-4xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
+      <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">Sitemap</p>
+      <h1 className="mt-3 text-4xl font-bold text-foreground sm:text-5xl">Site Map</h1>
+      <p className="mt-4 text-lg text-muted-foreground">
+        Every public page on skywardssolution.com — organized so you and search engines can find
+        exactly what you need.
+      </p>
+      <div className="mt-12 grid gap-10 sm:grid-cols-2">
+        {sections.map((s) => (
+          <div key={s.heading}>
+            <h2 className="text-xl font-semibold text-foreground">{s.heading}</h2>
+            <ul className="mt-4 space-y-2">
+              {s.links.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="text-brand hover:underline">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p className="mt-12 text-sm text-muted-foreground">
+        XML sitemap for search engines:{" "}
+        <a href="/sitemap.xml" className="text-brand hover:underline">
+          /sitemap.xml
+        </a>
+      </p>
+    </section>
+  );
+}
