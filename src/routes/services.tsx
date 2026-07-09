@@ -29,7 +29,9 @@ export const Route = createFileRoute("/services")({
           "Dry van, reefer and flatbed dispatch plus load booking, rate negotiation, broker comms and paperwork support — nationwide US coverage.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/services" },
     ],
+    links: [{ rel: "canonical", href: "https://www.skywardssolution.com/services" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -40,7 +42,7 @@ export const Route = createFileRoute("/services")({
           provider: {
             "@type": "Organization",
             name: "Skywards Solution",
-            url: "https://skyward-dispatch-solutions.lovable.app",
+            url: "https://www.skywardssolution.com",
             telephone: "+1-614-209-0850",
           },
           areaServed: { "@type": "Country", name: "United States" },
@@ -52,10 +54,24 @@ export const Route = createFileRoute("/services")({
               { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reefer Dispatch" } },
               { "@type": "Offer", itemOffered: { "@type": "Service", name: "Flatbed Dispatch" } },
               { "@type": "Offer", itemOffered: { "@type": "Service", name: "Step-Deck Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Power Only Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Hotshot Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Box Truck Dispatch" } },
               { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rate Negotiation" } },
               { "@type": "Offer", itemOffered: { "@type": "Service", name: "Paperwork Management" } },
             ],
           },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.skywardssolution.com/" },
+            { "@type": "ListItem", position: 2, name: "Services", item: "https://www.skywardssolution.com/services" },
+          ],
         }),
       },
     ],
