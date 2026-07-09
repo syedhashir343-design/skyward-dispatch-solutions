@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
 import { Toaster } from "../components/ui/sonner";
+import { ChatAssistant } from "../components/chat-assistant";
 
 function NotFoundComponent() {
   return (
@@ -168,6 +169,7 @@ function RootComponent() {
         </main>
         <SiteFooter />
         <Toaster richColors position="top-center" />
+        <ChatAssistant />
       </div>
     </QueryClientProvider>
   );
