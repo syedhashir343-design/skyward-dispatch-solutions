@@ -16,6 +16,7 @@ import { Route as CarrierSetupRouteImport } from './routes/carrier-setup'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
+import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
 import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
@@ -54,6 +55,11 @@ const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   path: '/api/public/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicChatRoute = ApiPublicChatRouteImport.update({
+  id: '/api/public/chat',
+  path: '/api/public/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicCarrierSetupRoute = ApiPublicCarrierSetupRouteImport.update({
   id: '/api/public/carrier-setup',
   path: '/api/public/carrier-setup',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/chat'
     | '/api/public/contact'
     | '/api/public/hooks/pagespeed'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/chat'
     | '/api/public/contact'
     | '/api/public/hooks/pagespeed'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/chat'
     | '/api/public/contact'
     | '/api/public/hooks/pagespeed'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
+  ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
   ApiPublicHooksPagespeedRoute: typeof ApiPublicHooksPagespeedRoute
 }
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/chat': {
+      id: '/api/public/chat'
+      path: '/api/public/chat'
+      fullPath: '/api/public/chat'
+      preLoaderRoute: typeof ApiPublicChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/carrier-setup': {
       id: '/api/public/carrier-setup'
       path: '/api/public/carrier-setup'
@@ -223,19 +243,10 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
+  ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
   ApiPublicHooksPagespeedRoute: ApiPublicHooksPagespeedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
