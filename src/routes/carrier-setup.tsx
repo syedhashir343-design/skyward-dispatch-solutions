@@ -35,14 +35,7 @@ const truckTypes = [
 ];
 
 function getCarrierSetupEndpoint() {
-  if (typeof window === "undefined") return "/api/public/carrier-setup";
-
-  const hostname = window.location.hostname;
-  const isPreviewHost = hostname.includes("lovableproject.com") || hostname.startsWith("id-preview--");
-
-  return isPreviewHost
-    ? "https://skyward-dispatch-solutions.lovable.app/api/public/carrier-setup"
-    : "/api/public/carrier-setup";
+  return "/api/public/carrier-setup";
 }
 
 function CarrierSetup() {
