@@ -64,14 +64,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function getContactEndpoint() {
-  if (typeof window === "undefined") return "/api/public/contact";
-
-  const hostname = window.location.hostname;
-  const isPreviewHost = hostname.includes("lovableproject.com") || hostname.startsWith("id-preview--");
-
-  return isPreviewHost
-    ? "https://skyward-dispatch-solutions.lovable.app/api/public/contact"
-    : "/api/public/contact";
+  return "/api/public/contact";
 }
 
 function Contact() {
