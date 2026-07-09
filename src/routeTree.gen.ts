@@ -10,13 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as StepDeckDispatchRouteImport } from './routes/step-deck-dispatch'
+import { Route as SmallFleetDispatchRouteImport } from './routes/small-fleet-dispatch'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ReeferDispatchRouteImport } from './routes/reefer-dispatch'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PowerOnlyDispatchRouteImport } from './routes/power-only-dispatch'
+import { Route as OwnerOperatorDispatchRouteImport } from './routes/owner-operator-dispatch'
+import { Route as HotshotDispatchRouteImport } from './routes/hotshot-dispatch'
+import { Route as FlatbedDispatchRouteImport } from './routes/flatbed-dispatch'
+import { Route as DryVanDispatchRouteImport } from './routes/dry-van-dispatch'
+import { Route as DedicatedDispatcherRouteImport } from './routes/dedicated-dispatcher'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CarrierSetupRouteImport } from './routes/carrier-setup'
+import { Route as BoxTruckDispatchRouteImport } from './routes/box-truck-dispatch'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
@@ -27,6 +37,16 @@ import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StepDeckDispatchRoute = StepDeckDispatchRouteImport.update({
+  id: '/step-deck-dispatch',
+  path: '/step-deck-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmallFleetDispatchRoute = SmallFleetDispatchRouteImport.update({
+  id: '/small-fleet-dispatch',
+  path: '/small-fleet-dispatch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -44,9 +64,44 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReeferDispatchRoute = ReeferDispatchRouteImport.update({
+  id: '/reefer-dispatch',
+  path: '/reefer-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PowerOnlyDispatchRoute = PowerOnlyDispatchRouteImport.update({
+  id: '/power-only-dispatch',
+  path: '/power-only-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OwnerOperatorDispatchRoute = OwnerOperatorDispatchRouteImport.update({
+  id: '/owner-operator-dispatch',
+  path: '/owner-operator-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HotshotDispatchRoute = HotshotDispatchRouteImport.update({
+  id: '/hotshot-dispatch',
+  path: '/hotshot-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlatbedDispatchRoute = FlatbedDispatchRouteImport.update({
+  id: '/flatbed-dispatch',
+  path: '/flatbed-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DryVanDispatchRoute = DryVanDispatchRouteImport.update({
+  id: '/dry-van-dispatch',
+  path: '/dry-van-dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DedicatedDispatcherRoute = DedicatedDispatcherRouteImport.update({
+  id: '/dedicated-dispatcher',
+  path: '/dedicated-dispatcher',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -62,6 +117,11 @@ const ContactRoute = ContactRouteImport.update({
 const CarrierSetupRoute = CarrierSetupRouteImport.update({
   id: '/carrier-setup',
   path: '/carrier-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoxTruckDispatchRoute = BoxTruckDispatchRouteImport.update({
+  id: '/box-truck-dispatch',
+  path: '/box-truck-dispatch',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -98,13 +158,23 @@ const ApiPublicHooksPagespeedRoute = ApiPublicHooksPagespeedRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/box-truck-dispatch': typeof BoxTruckDispatchRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dedicated-dispatcher': typeof DedicatedDispatcherRoute
+  '/dry-van-dispatch': typeof DryVanDispatchRoute
+  '/flatbed-dispatch': typeof FlatbedDispatchRoute
+  '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
+  '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
+  '/reefer-dispatch': typeof ReeferDispatchRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
+  '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -114,13 +184,23 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/box-truck-dispatch': typeof BoxTruckDispatchRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dedicated-dispatcher': typeof DedicatedDispatcherRoute
+  '/dry-van-dispatch': typeof DryVanDispatchRoute
+  '/flatbed-dispatch': typeof FlatbedDispatchRoute
+  '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
+  '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
+  '/reefer-dispatch': typeof ReeferDispatchRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
+  '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -131,13 +211,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/box-truck-dispatch': typeof BoxTruckDispatchRoute
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
+  '/dedicated-dispatcher': typeof DedicatedDispatcherRoute
+  '/dry-van-dispatch': typeof DryVanDispatchRoute
+  '/flatbed-dispatch': typeof FlatbedDispatchRoute
+  '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
+  '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
+  '/reefer-dispatch': typeof ReeferDispatchRoute
   '/services': typeof ServicesRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
+  '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -149,13 +239,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/box-truck-dispatch'
     | '/carrier-setup'
     | '/contact'
     | '/cookies'
+    | '/dedicated-dispatcher'
+    | '/dry-van-dispatch'
+    | '/flatbed-dispatch'
+    | '/hotshot-dispatch'
+    | '/owner-operator-dispatch'
+    | '/power-only-dispatch'
     | '/privacy'
+    | '/reefer-dispatch'
     | '/services'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/small-fleet-dispatch'
+    | '/step-deck-dispatch'
     | '/terms'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -165,13 +265,23 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/box-truck-dispatch'
     | '/carrier-setup'
     | '/contact'
     | '/cookies'
+    | '/dedicated-dispatcher'
+    | '/dry-van-dispatch'
+    | '/flatbed-dispatch'
+    | '/hotshot-dispatch'
+    | '/owner-operator-dispatch'
+    | '/power-only-dispatch'
     | '/privacy'
+    | '/reefer-dispatch'
     | '/services'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/small-fleet-dispatch'
+    | '/step-deck-dispatch'
     | '/terms'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -181,13 +291,23 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/box-truck-dispatch'
     | '/carrier-setup'
     | '/contact'
     | '/cookies'
+    | '/dedicated-dispatcher'
+    | '/dry-van-dispatch'
+    | '/flatbed-dispatch'
+    | '/hotshot-dispatch'
+    | '/owner-operator-dispatch'
+    | '/power-only-dispatch'
     | '/privacy'
+    | '/reefer-dispatch'
     | '/services'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/small-fleet-dispatch'
+    | '/step-deck-dispatch'
     | '/terms'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -198,13 +318,23 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BoxTruckDispatchRoute: typeof BoxTruckDispatchRoute
   CarrierSetupRoute: typeof CarrierSetupRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
+  DedicatedDispatcherRoute: typeof DedicatedDispatcherRoute
+  DryVanDispatchRoute: typeof DryVanDispatchRoute
+  FlatbedDispatchRoute: typeof FlatbedDispatchRoute
+  HotshotDispatchRoute: typeof HotshotDispatchRoute
+  OwnerOperatorDispatchRoute: typeof OwnerOperatorDispatchRoute
+  PowerOnlyDispatchRoute: typeof PowerOnlyDispatchRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReeferDispatchRoute: typeof ReeferDispatchRoute
   ServicesRoute: typeof ServicesRoute
   SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SmallFleetDispatchRoute: typeof SmallFleetDispatchRoute
+  StepDeckDispatchRoute: typeof StepDeckDispatchRoute
   TermsRoute: typeof TermsRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
@@ -219,6 +349,20 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/step-deck-dispatch': {
+      id: '/step-deck-dispatch'
+      path: '/step-deck-dispatch'
+      fullPath: '/step-deck-dispatch'
+      preLoaderRoute: typeof StepDeckDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/small-fleet-dispatch': {
+      id: '/small-fleet-dispatch'
+      path: '/small-fleet-dispatch'
+      fullPath: '/small-fleet-dispatch'
+      preLoaderRoute: typeof SmallFleetDispatchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -242,11 +386,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reefer-dispatch': {
+      id: '/reefer-dispatch'
+      path: '/reefer-dispatch'
+      fullPath: '/reefer-dispatch'
+      preLoaderRoute: typeof ReeferDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/power-only-dispatch': {
+      id: '/power-only-dispatch'
+      path: '/power-only-dispatch'
+      fullPath: '/power-only-dispatch'
+      preLoaderRoute: typeof PowerOnlyDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/owner-operator-dispatch': {
+      id: '/owner-operator-dispatch'
+      path: '/owner-operator-dispatch'
+      fullPath: '/owner-operator-dispatch'
+      preLoaderRoute: typeof OwnerOperatorDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hotshot-dispatch': {
+      id: '/hotshot-dispatch'
+      path: '/hotshot-dispatch'
+      fullPath: '/hotshot-dispatch'
+      preLoaderRoute: typeof HotshotDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flatbed-dispatch': {
+      id: '/flatbed-dispatch'
+      path: '/flatbed-dispatch'
+      fullPath: '/flatbed-dispatch'
+      preLoaderRoute: typeof FlatbedDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dry-van-dispatch': {
+      id: '/dry-van-dispatch'
+      path: '/dry-van-dispatch'
+      fullPath: '/dry-van-dispatch'
+      preLoaderRoute: typeof DryVanDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dedicated-dispatcher': {
+      id: '/dedicated-dispatcher'
+      path: '/dedicated-dispatcher'
+      fullPath: '/dedicated-dispatcher'
+      preLoaderRoute: typeof DedicatedDispatcherRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -268,6 +461,13 @@ declare module '@tanstack/react-router' {
       path: '/carrier-setup'
       fullPath: '/carrier-setup'
       preLoaderRoute: typeof CarrierSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/box-truck-dispatch': {
+      id: '/box-truck-dispatch'
+      path: '/box-truck-dispatch'
+      fullPath: '/box-truck-dispatch'
+      preLoaderRoute: typeof BoxTruckDispatchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -318,13 +518,23 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BoxTruckDispatchRoute: BoxTruckDispatchRoute,
   CarrierSetupRoute: CarrierSetupRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
+  DedicatedDispatcherRoute: DedicatedDispatcherRoute,
+  DryVanDispatchRoute: DryVanDispatchRoute,
+  FlatbedDispatchRoute: FlatbedDispatchRoute,
+  HotshotDispatchRoute: HotshotDispatchRoute,
+  OwnerOperatorDispatchRoute: OwnerOperatorDispatchRoute,
+  PowerOnlyDispatchRoute: PowerOnlyDispatchRoute,
   PrivacyRoute: PrivacyRoute,
+  ReeferDispatchRoute: ReeferDispatchRoute,
   ServicesRoute: ServicesRoute,
   SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SmallFleetDispatchRoute: SmallFleetDispatchRoute,
+  StepDeckDispatchRoute: StepDeckDispatchRoute,
   TermsRoute: TermsRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
