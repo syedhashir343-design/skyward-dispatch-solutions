@@ -108,14 +108,20 @@ export const Route = createFileRoute("/api/public/contact")({
     handlers: {
       OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
       POST: async ({ request }) => {
-        let json: unknown;
+        let body: unknown;
         try {
-          json = await request.json();
+          const contentType = request.headers.get("content-type") ?? "";
+          if (contentType.includes("application/json")) {
+            body = await request.json();
+          } else {
+            const formData = await request.formData();
+            body = Object.fromEntries(formData.entries());
+          }
         } catch {
-          return jsonResponse({ error: "Invalid JSON body" }, { status: 400 });
+          return jsonResponse({ error: "Invalid submission body" }, { status: 400 });
         }
 
-        const parsed = contactSchema.safeParse(json);
+        const parsed = contactSchema.safeParse(body);
         if (!parsed.success) {
           const flat = parsed.error.flatten();
           const fieldMessages = Object.entries(flat.fieldErrors)

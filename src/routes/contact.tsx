@@ -63,8 +63,28 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+const LOVABLE_BACKEND_URL = "https://skyward-dispatch-solutions.lovable.app";
+
 function getContactEndpoint() {
-  return "/api/public/contact";
+  if (typeof window === "undefined") return "/api/public/contact";
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+  const isLovableHost = hostname.endsWith(".lovable.app") || hostname.endsWith(".lovableproject.com");
+
+  if (isLocal || isLovableHost) return "/api/public/contact";
+
+  return `${LOVABLE_BACKEND_URL}/api/public/contact`;
+}
+
+function isExternalHostedSite() {
+  if (typeof window === "undefined") return false;
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+  const isLovableHost = hostname.endsWith(".lovable.app") || hostname.endsWith(".lovableproject.com");
+
+  return !isLocal && !isLovableHost;
 }
 
 function Contact() {
@@ -99,6 +119,20 @@ function Contact() {
     };
 
     try {
+      if (isExternalHostedSite()) {
+        await fetch(getContactEndpoint(), {
+          method: "POST",
+          mode: "no-cors",
+          body: data,
+        });
+
+        const successMessage = "Thank you! Your message has been sent successfully.";
+        setSubmitStatus({ type: "success", message: successMessage });
+        toast.success(successMessage);
+        formRef.current?.reset();
+        return;
+      }
+
       const res = await fetch(getContactEndpoint(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
