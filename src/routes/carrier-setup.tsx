@@ -87,20 +87,6 @@ function CarrierSetup() {
         return;
       }
 
-      // Send email notification via the Vercel serverless function (Gmail SMTP).
-      try {
-        const emailRes = await fetch("/api/send-carrier-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!emailRes.ok) {
-          console.error("Email notification failed:", await emailRes.text());
-        }
-      } catch (err) {
-        console.error("Email notification error:", err);
-      }
-
       const successMessage =
         "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.";
       setSubmitStatus({ type: "success", message: successMessage });
