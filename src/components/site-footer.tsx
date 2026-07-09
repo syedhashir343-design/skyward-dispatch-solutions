@@ -48,12 +48,16 @@ export function SiteFooter() {
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
           <ul className="mt-5 space-y-3 text-sm text-white/70">
-            <li>Dry Van Dispatch</li>
-            <li>Reefer Dispatch</li>
-            <li>Flatbed Dispatch</li>
-            <li>Load Booking</li>
-            <li>Rate Negotiation</li>
-            <li>24/7 Support</li>
+            <li><Link to="/dry-van-dispatch" className="hover:text-white">Dry Van Dispatch</Link></li>
+            <li><Link to="/reefer-dispatch" className="hover:text-white">Reefer Dispatch</Link></li>
+            <li><Link to="/flatbed-dispatch" className="hover:text-white">Flatbed Dispatch</Link></li>
+            <li><Link to="/step-deck-dispatch" className="hover:text-white">Step Deck Dispatch</Link></li>
+            <li><Link to="/power-only-dispatch" className="hover:text-white">Power Only Dispatch</Link></li>
+            <li><Link to="/hotshot-dispatch" className="hover:text-white">Hotshot Dispatch</Link></li>
+            <li><Link to="/box-truck-dispatch" className="hover:text-white">Box Truck Dispatch</Link></li>
+            <li><Link to="/owner-operator-dispatch" className="hover:text-white">Owner Operator Dispatch</Link></li>
+            <li><Link to="/small-fleet-dispatch" className="hover:text-white">Small Fleet Dispatch</Link></li>
+            <li><Link to="/dedicated-dispatcher" className="hover:text-white">Dedicated Dispatcher</Link></li>
           </ul>
         </div>
 
