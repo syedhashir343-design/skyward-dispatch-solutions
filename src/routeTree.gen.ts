@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CarrierSetupRouteImport } from './routes/carrier-setup'
@@ -23,6 +24,11 @@ import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/carrier-setup': typeof CarrierSetupRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/carrier-setup'
     | '/contact'
     | '/services'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/carrier-setup'
     | '/contact'
     | '/services'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/carrier-setup'
     | '/contact'
     | '/services'
+    | '/sitemap'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -153,6 +165,7 @@ export interface RootRouteChildren {
   CarrierSetupRoute: typeof CarrierSetupRoute
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
+  SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -241,6 +261,7 @@ const rootRouteChildren: RootRouteChildren = {
   CarrierSetupRoute: CarrierSetupRoute,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
+  SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
