@@ -42,6 +42,26 @@ const sections: { heading: string; links: { to: string; label: string }[] }[] = 
     ],
   },
   {
+    heading: "Locations",
+    links: [
+      { to: "/locations", label: "All Locations" },
+      { to: "/truck-dispatch-dallas", label: "Dallas, TX" },
+      { to: "/truck-dispatch-houston", label: "Houston, TX" },
+      { to: "/truck-dispatch-chicago", label: "Chicago, IL" },
+      { to: "/truck-dispatch-atlanta", label: "Atlanta, GA" },
+      { to: "/truck-dispatch-los-angeles", label: "Los Angeles, CA" },
+      { to: "/truck-dispatch-phoenix", label: "Phoenix, AZ" },
+      { to: "/truck-dispatch-denver", label: "Denver, CO" },
+      { to: "/truck-dispatch-miami", label: "Miami, FL" },
+      { to: "/truck-dispatch-charlotte", label: "Charlotte, NC" },
+      { to: "/truck-dispatch-memphis", label: "Memphis, TN" },
+      { to: "/truck-dispatch-indianapolis", label: "Indianapolis, IN" },
+      { to: "/truck-dispatch-columbus", label: "Columbus, OH" },
+      { to: "/truck-dispatch-kansas-city", label: "Kansas City, MO" },
+      { to: "/truck-dispatch-nashville", label: "Nashville, TN" },
+    ],
+  },
+  {
     heading: "Legal",
     links: [
       { to: "/privacy", label: "Privacy Policy" },
