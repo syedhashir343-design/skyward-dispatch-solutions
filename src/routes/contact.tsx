@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -61,7 +63,82 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+function getContactEndpoint() {
+  if (typeof window === "undefined") return "/api/public/contact";
+
+  const hostname = window.location.hostname;
+  const isPreviewHost = hostname.includes("lovableproject.com") || hostname.startsWith("id-preview--");
+
+  return isPreviewHost
+    ? "https://skyward-dispatch-solutions.lovable.app/api/public/contact"
+    : "/api/public/contact";
+}
+
 function Contact() {
+  const [submitting, setSubmitting] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    | { type: "success"; message: string }
+    | { type: "error"; message: string }
+    | null
+  >(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (submitting) return;
+
+    setSubmitting(true);
+    setSubmitStatus(null);
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      fullName: String(data.get("fullName") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      company: String(data.get("company") ?? "").trim(),
+      message: String(data.get("message") ?? "").trim(),
+    };
+
+    try {
+      const res = await fetch(getContactEndpoint(), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        let message = "Message failed. Please try again or call us.";
+        try {
+          const body = await res.json();
+          if (body?.error) message = String(body.error);
+        } catch {
+          /* ignore */
+        }
+        setSubmitStatus({ type: "error", message });
+        toast.error(message);
+        return;
+      }
+
+      const successMessage = "Thank you! Your message has been sent successfully.";
+      setSubmitStatus({ type: "success", message: successMessage });
+      toast.success(successMessage);
+      formRef.current?.reset();
+    } catch (err) {
+      console.error("Contact submit failed:", err);
+      const message = "Network error. Please check your connection and try again.";
+      setSubmitStatus({ type: "error", message });
+      toast.error(message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <>
       {/* HERO */}
@@ -104,6 +181,67 @@ function Contact() {
         </div>
       </section>
 
+      <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">Send a message</p>
+            <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">Tell us what you need moved.</h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Share your lane, equipment, or dispatch question and Sam’s team will reply directly from the office inbox.
+            </p>
+          </div>
+
+          <form
+            ref={formRef}
+            onSubmit={onSubmit}
+            action="/api/public/contact"
+            method="post"
+            className="grid gap-5 rounded-3xl border border-border bg-card p-8 shadow-soft sm:grid-cols-2"
+          >
+            <Field name="fullName" label="Full Name" required />
+            <Field name="email" label="Email Address" type="email" required />
+            <Field name="phone" label="Phone Number" type="tel" />
+            <Field name="company" label="Company Name" />
+
+            <div className="sm:col-span-2">
+              <label className="mb-1.5 block text-sm font-semibold text-foreground">
+                Message <span className="text-brand-light">*</span>
+              </label>
+              <textarea
+                name="message"
+                rows={5}
+                required
+                placeholder="Tell us about your trucks, freight, lanes, or dispatch needs…"
+                className="border-border bg-background focus:border-brand focus:ring-brand/20 w-full rounded-xl border px-4 py-3 text-base text-foreground outline-none transition-all focus:ring-4"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={submitting || !ready}
+              className="bg-gradient-brand text-brand-foreground shadow-elegant inline-flex h-14 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold transition-transform hover:scale-[1.02] disabled:opacity-60 sm:col-span-2"
+            >
+              <Send className="h-4 w-4" />
+              {submitting ? "Sending…" : "Send Message"}
+            </button>
+
+            {submitStatus && (
+              <div
+                className={`rounded-xl border px-4 py-3 text-sm font-medium sm:col-span-2 ${
+                  submitStatus.type === "success"
+                    ? "border-brand-light/40 bg-brand-light/10 text-foreground"
+                    : "border-destructive/40 bg-destructive/10 text-destructive"
+                }`}
+                role="status"
+                aria-live="polite"
+              >
+                {submitStatus.message}
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
       {/* MAP */}
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-border shadow-elegant">
@@ -119,5 +257,31 @@ function Contact() {
         </div>
       </section>
     </>
+  );
+}
+
+function Field({
+  name,
+  label,
+  type = "text",
+  required,
+}: {
+  name: string;
+  label: string;
+  type?: string;
+  required?: boolean;
+}) {
+  return (
+    <div>
+      <label className="mb-1.5 block text-sm font-semibold text-foreground">
+        {label} {required && <span className="text-brand-light">*</span>}
+      </label>
+      <input
+        name={name}
+        type={type}
+        required={required}
+        className="border-border bg-background focus:border-brand focus:ring-brand/20 h-12 w-full rounded-xl border px-4 text-base text-foreground outline-none transition-all focus:ring-4"
+      />
+    </div>
   );
 }
