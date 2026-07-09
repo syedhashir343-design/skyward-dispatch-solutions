@@ -33,6 +33,7 @@ import { Route as ReeferDispatchRouteImport } from './routes/reefer-dispatch'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PowerOnlyDispatchRouteImport } from './routes/power-only-dispatch'
 import { Route as OwnerOperatorDispatchRouteImport } from './routes/owner-operator-dispatch'
+import { Route as LocationsRouteImport } from './routes/locations'
 import { Route as HotshotDispatchRouteImport } from './routes/hotshot-dispatch'
 import { Route as FlatbedDispatchRouteImport } from './routes/flatbed-dispatch'
 import { Route as DryVanDispatchRouteImport } from './routes/dry-van-dispatch'
@@ -169,6 +170,11 @@ const OwnerOperatorDispatchRoute = OwnerOperatorDispatchRouteImport.update({
   path: '/owner-operator-dispatch',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsRoute = LocationsRouteImport.update({
+  id: '/locations',
+  path: '/locations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HotshotDispatchRoute = HotshotDispatchRouteImport.update({
   id: '/hotshot-dispatch',
   path: '/hotshot-dispatch',
@@ -251,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -291,6 +298,7 @@ export interface FileRoutesByTo {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -332,6 +340,7 @@ export interface FileRoutesById {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
   '/privacy': typeof PrivacyRoute
@@ -374,6 +383,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -414,6 +424,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -454,6 +465,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
     | '/privacy'
@@ -495,6 +507,7 @@ export interface RootRouteChildren {
   DryVanDispatchRoute: typeof DryVanDispatchRoute
   FlatbedDispatchRoute: typeof FlatbedDispatchRoute
   HotshotDispatchRoute: typeof HotshotDispatchRoute
+  LocationsRoute: typeof LocationsRoute
   OwnerOperatorDispatchRoute: typeof OwnerOperatorDispatchRoute
   PowerOnlyDispatchRoute: typeof PowerOnlyDispatchRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -695,6 +708,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OwnerOperatorDispatchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations': {
+      id: '/locations'
+      path: '/locations'
+      fullPath: '/locations'
+      preLoaderRoute: typeof LocationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hotshot-dispatch': {
       id: '/hotshot-dispatch'
       path: '/hotshot-dispatch'
@@ -807,6 +827,7 @@ const rootRouteChildren: RootRouteChildren = {
   DryVanDispatchRoute: DryVanDispatchRoute,
   FlatbedDispatchRoute: FlatbedDispatchRoute,
   HotshotDispatchRoute: HotshotDispatchRoute,
+  LocationsRoute: LocationsRoute,
   OwnerOperatorDispatchRoute: OwnerOperatorDispatchRoute,
   PowerOnlyDispatchRoute: PowerOnlyDispatchRoute,
   PrivacyRoute: PrivacyRoute,
