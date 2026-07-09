@@ -28,18 +28,20 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "USA truck dispatch for owner-operators. Load booking, rate negotiation, paperwork and 24/7 support from Toledo, Ohio.",
+          "Skywards Solution — USA truck dispatch for owner-operators and small fleets. Load booking, rate negotiation, dry van, reefer, flatbed dispatch & 24/7 support.",
       },
       { property: "og:title", content: "Skywards Solution — USA Truck Dispatch Services" },
       {
         property: "og:description",
         content:
-          "USA truck dispatch for owner-operators. Load booking, rate negotiation, paperwork and 24/7 support from Toledo, Ohio.",
+          "USA truck dispatch for owner-operators. Load booking, rate negotiation, dry van, reefer, flatbed dispatch & 24/7 dispatcher support.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/" },
     ],
     links: [
       { rel: "preload", as: "image", href: heroTruck, fetchpriority: "high" },
+      { rel: "canonical", href: "https://www.skywardssolution.com/" },
     ],
     scripts: [
       {
