@@ -84,6 +84,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Skywards Solution — Truck Dispatch Services USA" },
       { name: "description", content: "Skywards Solution is a Toledo, Ohio based truck dispatch company helping owner-operators across the USA with load booking, rate negotiation, and 24/7 dispatch support." },
       { name: "author", content: "Skywards Solution" },
+      // Search engine verification — replace the placeholder content values
+      // with the codes issued by Google Search Console and Bing Webmaster Tools.
+      // Google: Search Console → Add property → URL prefix → HTML tag.
+      // Bing:   Webmaster Tools → Add site → Meta tag (or "Import from GSC").
+      { name: "google-site-verification", content: "REPLACE_WITH_GOOGLE_VERIFICATION_CODE" },
+      { name: "msvalidate.01", content: "REPLACE_WITH_BING_VERIFICATION_CODE" },
       { property: "og:title", content: "Skywards Solution — Truck Dispatch Services USA" },
       { property: "og:description", content: "Skywards Solution is a Toledo, Ohio based truck dispatch company helping owner-operators across the USA with load booking, rate negotiation, and 24/7 dispatch support." },
       { property: "og:type", content: "website" },
