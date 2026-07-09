@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { LiveLaneBoard } from "@/components/live-lane-board";
 import {
   ArrowRight,
   CheckCircle2,
