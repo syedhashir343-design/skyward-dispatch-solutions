@@ -124,8 +124,18 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
 
         const parsed = submissionSchema.safeParse(json);
         if (!parsed.success) {
+          const flat = parsed.error.flatten();
+          const fieldMessages = Object.entries(flat.fieldErrors)
+            .filter(([, msgs]) => msgs && msgs.length)
+            .map(([field, msgs]) => `${field}: ${(msgs as string[]).join(", ")}`);
+          const detail = [...(flat.formErrors ?? []), ...fieldMessages].join("; ");
           return Response.json(
-            { error: "Validation failed", issues: parsed.error.flatten() },
+            {
+              error: detail
+                ? `Please fix the following fields — ${detail}`
+                : "The submission was rejected: one or more required fields are missing or invalid.",
+              issues: flat,
+            },
             { status: 400 },
           );
         }
@@ -153,8 +163,12 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
           await sendNotificationEmail(data);
         } catch (emailError) {
           console.error("[carrier-setup] notification email failed:", emailError);
+          const message =
+            emailError instanceof Error ? emailError.message : String(emailError);
           return Response.json(
-            { error: "We could not send the carrier setup notification. Please try again." },
+            {
+              error: `We could not send the carrier setup notification email: ${message}`,
+            },
             { status: 502 },
           );
         }
