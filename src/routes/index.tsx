@@ -133,7 +133,7 @@ function Index() {
           alt="Semi-truck driving on a US highway at golden hour"
           width={1920}
           height={1088}
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="async"
           className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
