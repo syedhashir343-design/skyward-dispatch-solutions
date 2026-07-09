@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import nodemailer from "nodemailer";
 
 const submissionSchema = z.object({
   fullName: z.string().trim().min(1).max(120),
@@ -14,8 +15,7 @@ const submissionSchema = z.object({
 });
 
 const NOTIFY_TO = "sam@skywardssolution.com";
-const FROM_EMAIL = "Skywards Solution <noreply@skywardssolution.com>";
-const RESEND_EMAIL_ENDPOINT = "https://api.resend.com/emails";
+const FROM_EMAIL = "Skywards Solution <sam@skywardssolution.com>";
 
 function escapeHtml(v: string) {
   return v
@@ -26,9 +26,23 @@ function escapeHtml(v: string) {
 }
 
 async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    throw new Error("RESEND_API_KEY is not configured");
+  const host = process.env.SMTP_HOST;
+  const portRaw = process.env.SMTP_PORT;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  const missing = [
+    !host && "SMTP_HOST",
+    !portRaw && "SMTP_PORT",
+    !user && "SMTP_USER",
+    !pass && "SMTP_PASS",
+  ].filter(Boolean) as string[];
+  if (missing.length) {
+    throw new Error(`SMTP configuration missing: ${missing.join(", ")}`);
+  }
+  const port = Number(portRaw);
+  if (!Number.isFinite(port) || port <= 0) {
+    throw new Error(`SMTP_PORT is invalid: "${portRaw}"`);
   }
 
   const rows = [
@@ -55,35 +69,46 @@ async function sendNotificationEmail(payload: z.infer<typeof submissionSchema>) 
     </table>
   `;
 
-  console.info(`[carrier-setup] sending Resend notification to: ${NOTIFY_TO}`);
+  console.info(`[carrier-setup] sending SMTP notification to: ${NOTIFY_TO} via ${host}:${port}`);
 
-  const res = await fetch(RESEND_EMAIL_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      from: FROM_EMAIL,
-      to: [NOTIFY_TO],
-      reply_to: payload.email,
-      subject: `Carrier Setup — ${payload.fullName} (${payload.company})`,
-      html,
-    }),
+  const transporter = nodemailer.createTransport({
+    host: host!,
+    port,
+    secure: port === 465, // STARTTLS on 587, implicit TLS on 465
+    auth: { user: user!, pass: pass! },
   });
 
-  if (!res.ok) {
-    const body = await res.text();
-    console.error(`[carrier-setup] Resend send failed [${res.status}]: ${body}`);
-    throw new Error(`Resend send failed [${res.status}]`);
+  try {
+    await transporter.verify();
+  } catch (err) {
+    console.error("[carrier-setup] SMTP connection/auth verification failed:", err);
+    throw new Error(
+      `SMTP connection or authentication failed: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 
-  const body = await res.json().catch(() => null);
-  if (!body?.id) {
-    console.error(`[carrier-setup] Resend response missing accepted email id for ${NOTIFY_TO}:`, body);
-    throw new Error("Resend did not confirm the email was accepted");
+  try {
+    const info = await transporter.sendMail({
+      from: FROM_EMAIL,
+      to: NOTIFY_TO,
+      replyTo: payload.email,
+      subject: `Carrier Setup — ${payload.fullName} (${payload.company})`,
+      html,
+    });
+    if (!info.accepted?.includes(NOTIFY_TO)) {
+      console.error(`[carrier-setup] SMTP did not accept ${NOTIFY_TO}`, info);
+      throw new Error(`SMTP server did not accept recipient ${NOTIFY_TO}`);
+    }
+    console.info(`[carrier-setup] SMTP accepted notification for ${NOTIFY_TO}`, {
+      messageId: info.messageId,
+      response: info.response,
+    });
+  } catch (err) {
+    console.error("[carrier-setup] SMTP send failed:", err);
+    throw new Error(
+      `SMTP send failed: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
-  console.info(`[carrier-setup] Resend accepted notification for ${NOTIFY_TO}`, body?.id ? { id: body.id } : undefined);
 }
 
 export const Route = createFileRoute("/api/public/carrier-setup")({
@@ -99,8 +124,18 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
 
         const parsed = submissionSchema.safeParse(json);
         if (!parsed.success) {
+          const flat = parsed.error.flatten();
+          const fieldMessages = Object.entries(flat.fieldErrors)
+            .filter(([, msgs]) => msgs && msgs.length)
+            .map(([field, msgs]) => `${field}: ${(msgs as string[]).join(", ")}`);
+          const detail = [...(flat.formErrors ?? []), ...fieldMessages].join("; ");
           return Response.json(
-            { error: "Validation failed", issues: parsed.error.flatten() },
+            {
+              error: detail
+                ? `Please fix the following fields — ${detail}`
+                : "The submission was rejected: one or more required fields are missing or invalid.",
+              issues: flat,
+            },
             { status: 400 },
           );
         }
@@ -128,8 +163,12 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
           await sendNotificationEmail(data);
         } catch (emailError) {
           console.error("[carrier-setup] notification email failed:", emailError);
+          const message =
+            emailError instanceof Error ? emailError.message : String(emailError);
           return Response.json(
-            { error: "We could not send the carrier setup notification. Please try again." },
+            {
+              error: `We could not send the carrier setup notification email: ${message}`,
+            },
             { status: 502 },
           );
         }
