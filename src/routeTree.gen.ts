@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TruckDispatchHoustonRouteImport } from './routes/truck-dispatch-houston'
 import { Route as TruckDispatchDallasRouteImport } from './routes/truck-dispatch-dallas'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StepDeckDispatchRouteImport } from './routes/step-deck-dispatch'
@@ -35,6 +36,11 @@ import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
 import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
+const TruckDispatchHoustonRoute = TruckDispatchHoustonRouteImport.update({
+  id: '/truck-dispatch-houston',
+  path: '/truck-dispatch-houston',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TruckDispatchDallasRoute = TruckDispatchDallasRouteImport.update({
   id: '/truck-dispatch-dallas',
   path: '/truck-dispatch-dallas',
@@ -183,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -210,6 +217,7 @@ export interface FileRoutesByTo {
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
+  '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -267,6 +276,7 @@ export interface FileRouteTypes {
     | '/step-deck-dispatch'
     | '/terms'
     | '/truck-dispatch-dallas'
+    | '/truck-dispatch-houston'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
     | '/step-deck-dispatch'
     | '/terms'
     | '/truck-dispatch-dallas'
+    | '/truck-dispatch-houston'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -321,6 +332,7 @@ export interface FileRouteTypes {
     | '/step-deck-dispatch'
     | '/terms'
     | '/truck-dispatch-dallas'
+    | '/truck-dispatch-houston'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -349,6 +361,7 @@ export interface RootRouteChildren {
   StepDeckDispatchRoute: typeof StepDeckDispatchRoute
   TermsRoute: typeof TermsRoute
   TruckDispatchDallasRoute: typeof TruckDispatchDallasRoute
+  TruckDispatchHoustonRoute: typeof TruckDispatchHoustonRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
@@ -357,6 +370,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/truck-dispatch-houston': {
+      id: '/truck-dispatch-houston'
+      path: '/truck-dispatch-houston'
+      fullPath: '/truck-dispatch-houston'
+      preLoaderRoute: typeof TruckDispatchHoustonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/truck-dispatch-dallas': {
       id: '/truck-dispatch-dallas'
       path: '/truck-dispatch-dallas'
@@ -557,6 +577,7 @@ const rootRouteChildren: RootRouteChildren = {
   StepDeckDispatchRoute: StepDeckDispatchRoute,
   TermsRoute: TermsRoute,
   TruckDispatchDallasRoute: TruckDispatchDallasRoute,
+  TruckDispatchHoustonRoute: TruckDispatchHoustonRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
