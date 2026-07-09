@@ -17,9 +17,9 @@ import {
   Users,
   Layers,
 } from "lucide-react";
-import heroTruck from "@/assets/hero-truck.jpg";
-import fleet from "@/assets/fleet.jpg";
-import dispatcher from "@/assets/dispatcher.jpg";
+import heroTruck from "@/assets/hero-truck.webp";
+import fleet from "@/assets/fleet.webp";
+import dispatcher from "@/assets/dispatcher.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({

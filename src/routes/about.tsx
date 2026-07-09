@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Award, Compass, Heart, Target, Truck } from "lucide-react";
-import dispatcher from "@/assets/dispatcher.jpg";
-import fleet from "@/assets/fleet.jpg";
+import dispatcher from "@/assets/dispatcher.webp";
+import fleet from "@/assets/fleet.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
