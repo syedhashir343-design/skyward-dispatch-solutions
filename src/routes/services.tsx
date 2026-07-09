@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  ClipboardList,
   FileText,
   HeadphonesIcon,
   Handshake,
   Layers,
-  MessageSquare,
   Snowflake,
   TrendingUp,
   Truck,
   UserPlus,
+  Users,
 } from "lucide-react";
 
 export const Route = createFileRoute("/services")({
@@ -80,15 +79,18 @@ export const Route = createFileRoute("/services")({
 });
 
 const services = [
-  { icon: Truck, title: "Dry Van Dispatch", desc: "Steady weekly volume on profitable dry van lanes — east, west, Midwest and South." },
-  { icon: Snowflake, title: "Reefer Dispatch", desc: "Temperature-controlled freight with strict tracking, fast detention follow-up and on-time delivery focus." },
-  { icon: Layers, title: "Flatbed Dispatch", desc: "Open-deck, step-deck, conestoga and oversized loads matched to qualified, paying brokers." },
-  { icon: ClipboardList, title: "Load Booking", desc: "Continuous load board sourcing plus our private broker network — we keep the truck moving." },
+  { icon: Truck, title: "Dry Van Dispatch", desc: "Steady weekly volume on profitable dry van lanes — east, west, Midwest and South.", to: "/dry-van-dispatch" },
+  { icon: Snowflake, title: "Reefer Dispatch", desc: "Temperature-controlled freight with strict tracking, fast detention follow-up and on-time delivery focus.", to: "/reefer-dispatch" },
+  { icon: Layers, title: "Flatbed Dispatch", desc: "Open-deck freight matched with the right brokers, with tarping and strapping pay negotiated up front.", to: "/flatbed-dispatch" },
+  { icon: Layers, title: "Step Deck Dispatch", desc: "Drop-deck, RGN and specialty tall freight paid at the step-deck premium — machinery, equipment and industrial.", to: "/step-deck-dispatch" },
+  { icon: Truck, title: "Power Only Dispatch", desc: "Amazon Relay, XPO, JB Hunt and broker trailer pool freight — drop, hook, drive.", to: "/power-only-dispatch" },
+  { icon: Truck, title: "Hotshot Dispatch", desc: "Gooseneck and bumper-pull hotshot dispatch on oilfield, construction, agricultural and expedited freight.", to: "/hotshot-dispatch" },
+  { icon: Truck, title: "Box Truck Dispatch", desc: "16'–26' straight truck dispatch on Amazon Relay, expedited, palletized and last-mile freight.", to: "/box-truck-dispatch" },
+  { icon: UserPlus, title: "Owner Operator Dispatch", desc: "Dedicated dispatch built for independent owner-operators — no forced dispatch, transparent pricing.", to: "/owner-operator-dispatch" },
+  { icon: Users, title: "Small Fleet Dispatch", desc: "Fleet dispatch for 2 to 25 trucks with specialist dispatchers per truck and fleet-level reporting.", to: "/small-fleet-dispatch" },
+  { icon: HeadphonesIcon, title: "Dedicated Dispatcher", desc: "One dedicated dispatcher who owns your success — not a call center rotation.", to: "/dedicated-dispatcher" },
   { icon: TrendingUp, title: "Rate Negotiation", desc: "Aggressive, data-backed negotiation that pushes every load to the strongest rate per mile." },
-  { icon: MessageSquare, title: "Broker Communication", desc: "We talk to brokers so you don’t have to — check calls, updates, issues, payment follow-up." },
-  { icon: UserPlus, title: "Carrier Setup Assistance", desc: "Packet completion, COI requests and broker onboarding handled for you, start to finish." },
   { icon: FileText, title: "Paperwork Management", desc: "Rate cons, BOLs, invoicing and factoring submissions — fully managed from your dispatch desk." },
-  { icon: HeadphonesIcon, title: "24/7 Support", desc: "Real, US-time-zone dispatchers reachable at any hour, including nights, weekends and holidays." },
 ];
 
 const process = [
@@ -120,18 +122,33 @@ function Services() {
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <div
-                key={s.title}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-elegant"
-              >
-                <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
-                  <s.icon className="h-6 w-6" />
+            {services.map((s) => {
+              const cardClass =
+                "group relative overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-elegant";
+              const inner = (
+                <>
+                  <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
+                    <s.icon className="h-6 w-6" />
+                  </div>
+                  <h2 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                  {s.to && (
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand">
+                      Learn more <ArrowRight className="h-4 w-4" />
+                    </span>
+                  )}
+                </>
+              );
+              return s.to ? (
+                <Link key={s.title} to={s.to} className={cardClass}>
+                  {inner}
+                </Link>
+              ) : (
+                <div key={s.title} className={cardClass}>
+                  {inner}
                 </div>
-                <h2 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
