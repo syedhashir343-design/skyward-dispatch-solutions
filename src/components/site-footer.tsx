@@ -79,7 +79,12 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-white/60 sm:flex-row sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} Skywards Solution. All rights reserved.</p>
-          <p>Toledo, Ohio · Serving the Entire United States</p>
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white">Terms of Service</Link>
+            <Link to="/cookies" className="hover:text-white">Cookie Policy</Link>
+            <Link to="/sitemap" className="hover:text-white">Sitemap</Link>
+          </nav>
         </div>
       </div>
     </footer>

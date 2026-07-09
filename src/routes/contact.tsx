@@ -19,7 +19,9 @@ export const Route = createFileRoute("/contact")({
           "Reach our Toledo, Ohio dispatch team — phone, email, address and 24/7 carrier support.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://www.skywardssolution.com/contact" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -27,8 +29,9 @@ export const Route = createFileRoute("/contact")({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Skywards Solution",
-          url: "https://skyward-dispatch-solutions.lovable.app",
-          image: "https://skyward-dispatch-solutions.lovable.app/favicon.ico",
+          "@id": "https://www.skywardssolution.com/#localbusiness",
+          url: "https://www.skywardssolution.com",
+          image: "https://www.skywardssolution.com/favicon.ico",
           telephone: "+1-614-209-0850",
           email: "sam@skywardssolution.com",
           address: {
@@ -39,6 +42,7 @@ export const Route = createFileRoute("/contact")({
             postalCode: "43604",
             addressCountry: "US",
           },
+          priceRange: "$$",
           openingHoursSpecification: [
             {
               "@type": "OpeningHoursSpecification",
@@ -56,6 +60,26 @@ export const Route = createFileRoute("/contact")({
             },
           ],
           areaServed: { "@type": "Country", name: "United States" },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact Skywards Solution",
+          url: "https://www.skywardssolution.com/contact",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.skywardssolution.com/" },
+            { "@type": "ListItem", position: 2, name: "Contact", item: "https://www.skywardssolution.com/contact" },
+          ],
         }),
       },
     ],

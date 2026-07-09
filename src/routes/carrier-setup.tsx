@@ -19,6 +19,32 @@ export const Route = createFileRoute("/carrier-setup")({
           "Submit your carrier info and start running loads with a dedicated dispatcher — nationwide USA coverage from Toledo, OH.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/carrier-setup" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.skywardssolution.com/carrier-setup" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Carrier Setup — Skywards Solution",
+          url: "https://www.skywardssolution.com/carrier-setup",
+          description:
+            "Submit your MC, DOT, equipment and preferred lanes to onboard with a dedicated dispatcher at Skywards Solution.",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.skywardssolution.com/" },
+            { "@type": "ListItem", position: 2, name: "Carrier Setup", item: "https://www.skywardssolution.com/carrier-setup" },
+          ],
+        }),
+      },
     ],
   }),
   component: CarrierSetup,
