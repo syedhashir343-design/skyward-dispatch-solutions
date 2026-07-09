@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TruckDispatchHoustonRouteImport } from './routes/truck-dispatch-houston'
 import { Route as TruckDispatchDallasRouteImport } from './routes/truck-dispatch-dallas'
 import { Route as TruckDispatchChicagoRouteImport } from './routes/truck-dispatch-chicago'
+import { Route as TruckDispatchAtlantaRouteImport } from './routes/truck-dispatch-atlanta'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StepDeckDispatchRouteImport } from './routes/step-deck-dispatch'
 import { Route as SmallFleetDispatchRouteImport } from './routes/small-fleet-dispatch'
@@ -50,6 +51,11 @@ const TruckDispatchDallasRoute = TruckDispatchDallasRouteImport.update({
 const TruckDispatchChicagoRoute = TruckDispatchChicagoRouteImport.update({
   id: '/truck-dispatch-chicago',
   path: '/truck-dispatch-chicago',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchAtlantaRoute = TruckDispatchAtlantaRouteImport.update({
+  id: '/truck-dispatch-atlanta',
+  path: '/truck-dispatch-atlanta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
   '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByTo {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
   '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
@@ -253,6 +261,7 @@ export interface FileRoutesById {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-atlanta': typeof TruckDispatchAtlantaRoute
   '/truck-dispatch-chicago': typeof TruckDispatchChicagoRoute
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
@@ -284,6 +293,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
     | '/truck-dispatch-chicago'
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
@@ -313,6 +323,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
     | '/truck-dispatch-chicago'
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
@@ -342,6 +353,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-atlanta'
     | '/truck-dispatch-chicago'
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
@@ -372,6 +384,7 @@ export interface RootRouteChildren {
   SmallFleetDispatchRoute: typeof SmallFleetDispatchRoute
   StepDeckDispatchRoute: typeof StepDeckDispatchRoute
   TermsRoute: typeof TermsRoute
+  TruckDispatchAtlantaRoute: typeof TruckDispatchAtlantaRoute
   TruckDispatchChicagoRoute: typeof TruckDispatchChicagoRoute
   TruckDispatchDallasRoute: typeof TruckDispatchDallasRoute
   TruckDispatchHoustonRoute: typeof TruckDispatchHoustonRoute
@@ -402,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/truck-dispatch-chicago'
       fullPath: '/truck-dispatch-chicago'
       preLoaderRoute: typeof TruckDispatchChicagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-atlanta': {
+      id: '/truck-dispatch-atlanta'
+      path: '/truck-dispatch-atlanta'
+      fullPath: '/truck-dispatch-atlanta'
+      preLoaderRoute: typeof TruckDispatchAtlantaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -596,6 +616,7 @@ const rootRouteChildren: RootRouteChildren = {
   SmallFleetDispatchRoute: SmallFleetDispatchRoute,
   StepDeckDispatchRoute: StepDeckDispatchRoute,
   TermsRoute: TermsRoute,
+  TruckDispatchAtlantaRoute: TruckDispatchAtlantaRoute,
   TruckDispatchChicagoRoute: TruckDispatchChicagoRoute,
   TruckDispatchDallasRoute: TruckDispatchDallasRoute,
   TruckDispatchHoustonRoute: TruckDispatchHoustonRoute,
