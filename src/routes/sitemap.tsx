@@ -23,6 +23,7 @@ const sections: { heading: string; links: { to: string; label: string }[] }[] = 
       { to: "/about", label: "About Us" },
       { to: "/services", label: "Services" },
       { to: "/carrier-setup", label: "Carrier Setup" },
+      { to: "/blog", label: "Blog" },
       { to: "/contact", label: "Contact" },
     ],
   },
