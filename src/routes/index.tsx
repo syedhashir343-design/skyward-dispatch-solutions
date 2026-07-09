@@ -24,19 +24,35 @@ import dispatcher from "@/assets/dispatcher.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Skywards Solution — Truck Dispatch Services in Toledo, Ohio | USA Nationwide" },
+      { title: "Skywards Solution — USA Truck Dispatch Services" },
       {
         name: "description",
         content:
-          "Reliable truck dispatch services across the USA. Skywards Solution helps owner-operators maximize profits with dedicated dispatchers, load booking, rate negotiation and 24/7 support.",
+          "USA truck dispatch for owner-operators. Load booking, rate negotiation, paperwork and 24/7 support from Toledo, Ohio.",
       },
-      { property: "og:title", content: "Skywards Solution — Truck Dispatch Services USA" },
+      { property: "og:title", content: "Skywards Solution — USA Truck Dispatch Services" },
       {
         property: "og:description",
         content:
-          "Premium nationwide dispatch services for owner-operators and carriers — load booking, rate negotiation, paperwork and 24/7 support from Toledo, OH.",
+          "USA truck dispatch for owner-operators. Load booking, rate negotiation, paperwork and 24/7 support from Toledo, Ohio.",
       },
       { property: "og:type", content: "website" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "What does a truck dispatcher actually do?", acceptedAnswer: { "@type": "Answer", text: "We find and book loads on your behalf, negotiate the best rates with brokers, handle carrier setup packets, manage paperwork like rate confirmations and BOLs, and provide 24/7 support while you focus on driving." } },
+            { "@type": "Question", name: "How much does Skywards Solution charge?", acceptedAnswer: { "@type": "Answer", text: "We work on a transparent percentage of the gross load — no setup fees, no hidden charges, no forced dispatch. Contact us for current rates tailored to your equipment." } },
+            { "@type": "Question", name: "Do you work with new authorities?", acceptedAnswer: { "@type": "Answer", text: "Yes. We help brand-new MC holders get carrier packets completed and start booking real loads from day one." } },
+            { "@type": "Question", name: "Which trailer types do you dispatch?", acceptedAnswer: { "@type": "Answer", text: "Dry van, reefer, flatbed, step-deck and conestoga. If you have an unusual setup, just ask." } },
+            { "@type": "Question", name: "Where are you located and what areas do you cover?", acceptedAnswer: { "@type": "Answer", text: "We are based in Toledo, Ohio and dispatch across the entire continental United States." } },
+          ],
+        }),
+      },
     ],
   }),
   component: Index,
