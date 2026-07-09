@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TruckDispatchPhoenixRouteImport } from './routes/truck-dispatch-phoenix'
 import { Route as TruckDispatchLosAngelesRouteImport } from './routes/truck-dispatch-los-angeles'
 import { Route as TruckDispatchHoustonRouteImport } from './routes/truck-dispatch-houston'
 import { Route as TruckDispatchDallasRouteImport } from './routes/truck-dispatch-dallas'
@@ -39,6 +40,11 @@ import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
 import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
+const TruckDispatchPhoenixRoute = TruckDispatchPhoenixRouteImport.update({
+  id: '/truck-dispatch-phoenix',
+  path: '/truck-dispatch-phoenix',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TruckDispatchLosAngelesRoute = TruckDispatchLosAngelesRouteImport.update({
   id: '/truck-dispatch-los-angeles',
   path: '/truck-dispatch-los-angeles',
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -242,6 +249,7 @@ export interface FileRoutesByTo {
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -274,6 +282,7 @@ export interface FileRoutesById {
   '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
+  '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -307,6 +316,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -369,6 +380,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-dallas'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-los-angeles'
+    | '/truck-dispatch-phoenix'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -401,6 +413,7 @@ export interface RootRouteChildren {
   TruckDispatchDallasRoute: typeof TruckDispatchDallasRoute
   TruckDispatchHoustonRoute: typeof TruckDispatchHoustonRoute
   TruckDispatchLosAngelesRoute: typeof TruckDispatchLosAngelesRoute
+  TruckDispatchPhoenixRoute: typeof TruckDispatchPhoenixRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
@@ -409,6 +422,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/truck-dispatch-phoenix': {
+      id: '/truck-dispatch-phoenix'
+      path: '/truck-dispatch-phoenix'
+      fullPath: '/truck-dispatch-phoenix'
+      preLoaderRoute: typeof TruckDispatchPhoenixRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/truck-dispatch-los-angeles': {
       id: '/truck-dispatch-los-angeles'
       path: '/truck-dispatch-los-angeles'
@@ -641,6 +661,7 @@ const rootRouteChildren: RootRouteChildren = {
   TruckDispatchDallasRoute: TruckDispatchDallasRoute,
   TruckDispatchHoustonRoute: TruckDispatchHoustonRoute,
   TruckDispatchLosAngelesRoute: TruckDispatchLosAngelesRoute,
+  TruckDispatchPhoenixRoute: TruckDispatchPhoenixRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
