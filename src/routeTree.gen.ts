@@ -16,6 +16,7 @@ import { Route as CarrierSetupRouteImport } from './routes/carrier-setup'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
+import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -52,6 +53,11 @@ const ApiPublicCarrierSetupRoute = ApiPublicCarrierSetupRouteImport.update({
   path: '/api/public/carrier-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksPagespeedRoute = ApiPublicHooksPagespeedRouteImport.update({
+  id: '/api/public/hooks/pagespeed',
+  path: '/api/public/hooks/pagespeed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
+  '/api/public/hooks/pagespeed': typeof ApiPublicHooksPagespeedRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/hooks/pagespeed'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/hooks/pagespeed'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/api/public/carrier-setup'
+    | '/api/public/hooks/pagespeed'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
+  ApiPublicHooksPagespeedRoute: typeof ApiPublicHooksPagespeedRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCarrierSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/pagespeed': {
+      id: '/api/public/hooks/pagespeed'
+      path: '/api/public/hooks/pagespeed'
+      fullPath: '/api/public/hooks/pagespeed'
+      preLoaderRoute: typeof ApiPublicHooksPagespeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
+  ApiPublicHooksPagespeedRoute: ApiPublicHooksPagespeedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
