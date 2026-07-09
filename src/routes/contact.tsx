@@ -52,7 +52,7 @@ function Contact() {
               <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
                 <c.icon className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">{c.title}</h3>
+              <h2 className="mt-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">{c.title}</h2>
               {c.href ? (
                 <a href={c.href} className="text-brand mt-2 block text-lg font-semibold hover:underline">
                   {c.value}
