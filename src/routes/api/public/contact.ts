@@ -76,7 +76,7 @@ ${rows
   const mime = [
     `To: ${to}`,
     `Reply-To: ${data.email}`,
-    `Subject: New Contact Form Message — ${data.fullName}`,
+    `Subject: =?UTF-8?B?${btoa(unescape(encodeURIComponent(`New Contact Form Message - ${data.fullName}`)))}?=`,
     "MIME-Version: 1.0",
     'Content-Type: text/html; charset="UTF-8"',
     "",
