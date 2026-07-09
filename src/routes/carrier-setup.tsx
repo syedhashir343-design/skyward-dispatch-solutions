@@ -34,7 +34,31 @@ const truckTypes = [
   "Other",
 ];
 
+const LOVABLE_BACKEND_URL = "https://skyward-dispatch-solutions.lovable.app";
+
 function getCarrierSetupEndpoint() {
+  if (typeof window === "undefined") return "/api/public/carrier-setup";
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+  const isLovableHost = hostname.endsWith(".lovable.app") || hostname.endsWith(".lovableproject.com");
+
+  if (isLocal || isLovableHost) return "/api/public/carrier-setup";
+
+  return `${LOVABLE_BACKEND_URL}/api/public/carrier-setup`;
+}
+
+function isExternalHostedSite() {
+  if (typeof window === "undefined") return false;
+
+  const hostname = window.location.hostname;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+  const isLovableHost = hostname.endsWith(".lovable.app") || hostname.endsWith(".lovableproject.com");
+
+  return !isLocal && !isLovableHost;
+}
+
+function getContactHref() {
   return "/api/public/carrier-setup";
 }
 
@@ -72,6 +96,21 @@ function CarrierSetup() {
     };
 
     try {
+      if (isExternalHostedSite()) {
+        await fetch(getCarrierSetupEndpoint(), {
+          method: "POST",
+          mode: "no-cors",
+          body: data,
+        });
+
+        const successMessage =
+          "Thank you! Your carrier setup request has been submitted successfully. Our team will contact you shortly.";
+        setSubmitStatus({ type: "success", message: successMessage });
+        toast.success(successMessage);
+        formRef.current?.reset();
+        return;
+      }
+
       const res = await fetch(getCarrierSetupEndpoint(), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -130,7 +169,7 @@ function CarrierSetup() {
             <form
               ref={formRef}
               onSubmit={onSubmit}
-              action="/api/public/carrier-setup"
+              action={getContactHref()}
               method="post"
               className="grid gap-5 sm:grid-cols-2"
             >

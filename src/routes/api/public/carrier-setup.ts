@@ -16,7 +16,8 @@ const submissionSchema = z.object({
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept, Origin",
+  "Access-Control-Max-Age": "86400",
 };
 
 function jsonResponse(body: unknown, init?: ResponseInit) {
@@ -58,7 +59,7 @@ async function sendGmailNotification(data: {
   const gmailKey = process.env.GOOGLE_MAIL_API_KEY;
   if (!lovableKey || !gmailKey) {
     console.error("[carrier-setup] Missing Gmail gateway credentials");
-    return;
+    throw new Error("Email is not configured");
   }
 
   const to = "sam@skywardssolution.com";
@@ -110,6 +111,7 @@ ${rows
   if (!res.ok) {
     const text = await res.text();
     console.error(`[carrier-setup] Gmail send failed [${res.status}]: ${text}`);
+    throw new Error("Email could not be sent");
   }
 }
 
@@ -118,14 +120,20 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
     handlers: {
       OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
       POST: async ({ request }) => {
-        let json: unknown;
+        let body: unknown;
         try {
-          json = await request.json();
+          const contentType = request.headers.get("content-type") ?? "";
+          if (contentType.includes("application/json")) {
+            body = await request.json();
+          } else {
+            const formData = await request.formData();
+            body = Object.fromEntries(formData.entries());
+          }
         } catch {
-          return jsonResponse({ error: "Invalid JSON body" }, { status: 400 });
+          return jsonResponse({ error: "Invalid submission body" }, { status: 400 });
         }
 
-        const parsed = submissionSchema.safeParse(json);
+        const parsed = submissionSchema.safeParse(body);
         if (!parsed.success) {
           const flat = parsed.error.flatten();
           const fieldMessages = Object.entries(flat.fieldErrors)
@@ -144,29 +152,33 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
         }
         const data = parsed.data;
 
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { error } = await supabaseAdmin.from("carrier_submissions").insert({
-          full_name: data.fullName,
-          company: data.company,
-          phone: data.phone,
-          email: data.email,
-          mc_number: data.mc,
-          dot_number: data.dot,
-          truck_type: data.truckType,
-          preferred_lanes: data.lanes || null,
-          notes: data.notes || null,
-        });
-
-        if (error) {
-          console.error("[carrier-setup] insert failed:", error);
-          return jsonResponse({ error: "Failed to save submission" }, { status: 500 });
-        }
-
-        // Fire-and-forward: never block the user response on email delivery.
         try {
           await sendGmailNotification(data);
         } catch (err) {
           console.error("[carrier-setup] Email notification error:", err);
+          return jsonResponse(
+            { error: "Carrier setup could not be sent. Please call us at (614) 209-0850." },
+            { status: 500 },
+          );
+        }
+
+        try {
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          const { error } = await supabaseAdmin.from("carrier_submissions").insert({
+            full_name: data.fullName,
+            company: data.company,
+            phone: data.phone,
+            email: data.email,
+            mc_number: data.mc,
+            dot_number: data.dot,
+            truck_type: data.truckType,
+            preferred_lanes: data.lanes || null,
+            notes: data.notes || null,
+          });
+
+          if (error) console.error("[carrier-setup] insert failed:", error);
+        } catch (err) {
+          console.error("[carrier-setup] save skipped after email sent:", err);
         }
 
         return jsonResponse({ ok: true });
