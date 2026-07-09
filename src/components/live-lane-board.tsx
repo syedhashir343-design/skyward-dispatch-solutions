@@ -194,7 +194,6 @@ function buildSnapshot(truck: TruckType, prevLane?: Lane, prevNote?: string): Sn
   const lane = pick(LANES, prevLane);
   const [rMin, rMax] = RPM_RANGE[truck];
   const rpm = Math.round(rand(rMin, rMax) * 100) / 100;
-  // slight lane-mile jitter to feel live, keep within 600-2200
   const jitter = rand(-25, 25);
   const miles = Math.max(600, Math.min(2200, Math.round(lane.miles + jitter)));
   const gross = Math.round(miles * rpm);
@@ -203,6 +202,27 @@ function buildSnapshot(truck: TruckType, prevLane?: Lane, prevNote?: string): Sn
   const note = pick(MARKET_NOTES[truck], prevNote);
   const lift = pick(LIFTS);
   return { lane, rpm, miles, gross, weekly, note, lift };
+}
+
+// Deterministic snapshot for the initial render — must match on server and client
+// to avoid hydration mismatch. Randomization happens after mount.
+function initialSnapshot(truck: TruckType): Snapshot {
+  const lane = LANES[0];
+  const [rMin, rMax] = RPM_RANGE[truck];
+  const rpm = Math.round(((rMin + rMax) / 2) * 100) / 100;
+  const miles = lane.miles;
+  const gross = Math.round(miles * rpm);
+  const [wMin, wMax] = WEEKLY_RANGE[truck];
+  const weekly = Math.round((wMin + wMax) / 2 / 50) * 50;
+  return {
+    lane,
+    rpm,
+    miles,
+    gross,
+    weekly,
+    note: MARKET_NOTES[truck][0],
+    lift: LIFTS[3],
+  };
 }
 
 function useCountUp(target: number, duration = 700) {
@@ -238,8 +258,16 @@ function formatRpm(n: number) {
 export function LiveLaneBoard() {
   const [truck, setTruck] = useState<TruckType>("Dry Van");
   const [open, setOpen] = useState(false);
-  const [snap, setSnap] = useState<Snapshot>(() => buildSnapshot("Dry Van"));
+  const [snap, setSnap] = useState<Snapshot>(() => initialSnapshot("Dry Van"));
+  const [mounted, setMounted] = useState(false);
   const [pulse, setPulse] = useState(0);
+
+  // Randomize only after mount to keep SSR HTML deterministic
+  useEffect(() => {
+    setMounted(true);
+    setSnap((prev) => buildSnapshot("Dry Van", prev.lane, prev.note));
+    setPulse((p) => p + 1);
+  }, []);
 
   // rotate lane every 3-5 minutes
   useEffect(() => {
@@ -256,10 +284,12 @@ export function LiveLaneBoard() {
     return () => window.clearTimeout(timeoutId);
   }, [truck]);
 
-  // instant refresh on truck change
+  // instant refresh on truck change (skip first mount — handled above)
   useEffect(() => {
+    if (!mounted) return;
     setSnap((prev) => buildSnapshot(truck, prev.lane, prev.note));
     setPulse((p) => p + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [truck]);
 
   const miles = useCountUp(snap.miles);
