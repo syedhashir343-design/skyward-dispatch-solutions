@@ -56,6 +56,48 @@ export type Database = {
         }
         Relationships: []
       }
+      perf_metrics: {
+        Row: {
+          cls: number | null
+          created_at: string
+          fcp_ms: number | null
+          id: string
+          lcp_ms: number | null
+          performance_score: number | null
+          raw: Json | null
+          si_ms: number | null
+          strategy: string
+          tbt_ms: number | null
+          url: string
+        }
+        Insert: {
+          cls?: number | null
+          created_at?: string
+          fcp_ms?: number | null
+          id?: string
+          lcp_ms?: number | null
+          performance_score?: number | null
+          raw?: Json | null
+          si_ms?: number | null
+          strategy: string
+          tbt_ms?: number | null
+          url: string
+        }
+        Update: {
+          cls?: number | null
+          created_at?: string
+          fcp_ms?: number | null
+          id?: string
+          lcp_ms?: number | null
+          performance_score?: number | null
+          raw?: Json | null
+          si_ms?: number | null
+          strategy?: string
+          tbt_ms?: number | null
+          url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

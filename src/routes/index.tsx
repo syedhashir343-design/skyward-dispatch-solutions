@@ -17,9 +17,9 @@ import {
   Users,
   Layers,
 } from "lucide-react";
-import heroTruck from "@/assets/hero-truck.jpg";
-import fleet from "@/assets/fleet.jpg";
-import dispatcher from "@/assets/dispatcher.jpg";
+import heroTruck from "@/assets/hero-truck.webp";
+import fleet from "@/assets/fleet.webp";
+import dispatcher from "@/assets/dispatcher.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,6 +37,9 @@ export const Route = createFileRoute("/")({
           "USA truck dispatch for owner-operators. Load booking, rate negotiation, paperwork and 24/7 support from Toledo, Ohio.",
       },
       { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "preload", as: "image", href: heroTruck, fetchpriority: "high" },
     ],
     scripts: [
       {
@@ -130,6 +133,8 @@ function Index() {
           alt="Semi-truck driving on a US highway at golden hour"
           width={1920}
           height={1088}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
         <div className="hero-overlay absolute inset-0 -z-10" />
