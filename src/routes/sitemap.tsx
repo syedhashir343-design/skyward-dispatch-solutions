@@ -27,6 +27,21 @@ const sections: { heading: string; links: { to: string; label: string }[] }[] = 
     ],
   },
   {
+    heading: "Dispatch Services",
+    links: [
+      { to: "/dry-van-dispatch", label: "Dry Van Dispatch" },
+      { to: "/reefer-dispatch", label: "Reefer Dispatch" },
+      { to: "/flatbed-dispatch", label: "Flatbed Dispatch" },
+      { to: "/step-deck-dispatch", label: "Step Deck Dispatch" },
+      { to: "/power-only-dispatch", label: "Power Only Dispatch" },
+      { to: "/hotshot-dispatch", label: "Hotshot Dispatch" },
+      { to: "/box-truck-dispatch", label: "Box Truck Dispatch" },
+      { to: "/owner-operator-dispatch", label: "Owner Operator Dispatch" },
+      { to: "/small-fleet-dispatch", label: "Small Fleet Dispatch" },
+      { to: "/dedicated-dispatcher", label: "Dedicated Dispatcher" },
+    ],
+  },
+  {
     heading: "Legal",
     links: [
       { to: "/privacy", label: "Privacy Policy" },
