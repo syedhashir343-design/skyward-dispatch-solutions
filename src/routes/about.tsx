@@ -19,6 +19,30 @@ export const Route = createFileRoute("/about")({
           "A carrier-first dispatch team based in Toledo, Ohio — dedicated dispatchers, transparent pricing and nationwide coverage.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://www.skywardssolution.com/about" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.skywardssolution.com/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About Skywards Solution",
+          url: "https://www.skywardssolution.com/about",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://www.skywardssolution.com/" },
+            { "@type": "ListItem", position: 2, name: "About", item: "https://www.skywardssolution.com/about" },
+          ],
+        }),
+      },
     ],
   }),
   component: About,
