@@ -13,6 +13,22 @@ const submissionSchema = z.object({
   notes: z.string().trim().max(2000).optional().default(""),
 });
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+function jsonResponse(body: unknown, init?: ResponseInit) {
+  return Response.json(body, {
+    ...init,
+    headers: {
+      ...corsHeaders,
+      ...(init?.headers ?? {}),
+    },
+  });
+}
+
 function escapeHtml(v: string) {
   return v
     .replace(/&/g, "&amp;")
@@ -100,12 +116,13 @@ ${rows
 export const Route = createFileRoute("/api/public/carrier-setup")({
   server: {
     handlers: {
+      OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
       POST: async ({ request }) => {
         let json: unknown;
         try {
           json = await request.json();
         } catch {
-          return Response.json({ error: "Invalid JSON body" }, { status: 400 });
+          return jsonResponse({ error: "Invalid JSON body" }, { status: 400 });
         }
 
         const parsed = submissionSchema.safeParse(json);
@@ -115,7 +132,7 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
             .filter(([, msgs]) => msgs && msgs.length)
             .map(([field, msgs]) => `${field}: ${(msgs as string[]).join(", ")}`);
           const detail = [...(flat.formErrors ?? []), ...fieldMessages].join("; ");
-          return Response.json(
+          return jsonResponse(
             {
               error: detail
                 ? `Please fix the following fields — ${detail}`
@@ -142,7 +159,7 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
 
         if (error) {
           console.error("[carrier-setup] insert failed:", error);
-          return Response.json({ error: "Failed to save submission" }, { status: 500 });
+          return jsonResponse({ error: "Failed to save submission" }, { status: 500 });
         }
 
         // Fire-and-forward: never block the user response on email delivery.
@@ -152,7 +169,7 @@ export const Route = createFileRoute("/api/public/carrier-setup")({
           console.error("[carrier-setup] Email notification error:", err);
         }
 
-        return Response.json({ ok: true });
+        return jsonResponse({ ok: true });
       },
     },
   },
