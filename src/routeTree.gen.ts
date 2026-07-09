@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TruckDispatchDallasRouteImport } from './routes/truck-dispatch-dallas'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as StepDeckDispatchRouteImport } from './routes/step-deck-dispatch'
 import { Route as SmallFleetDispatchRouteImport } from './routes/small-fleet-dispatch'
@@ -34,6 +35,11 @@ import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
 import { Route as ApiPublicHooksPagespeedRouteImport } from './routes/api/public/hooks/pagespeed'
 
+const TruckDispatchDallasRoute = TruckDispatchDallasRouteImport.update({
+  id: '/truck-dispatch-dallas',
+  path: '/truck-dispatch-dallas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -176,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/small-fleet-dispatch': typeof SmallFleetDispatchRoute
   '/step-deck-dispatch': typeof StepDeckDispatchRoute
   '/terms': typeof TermsRoute
+  '/truck-dispatch-dallas': typeof TruckDispatchDallasRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-dallas'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-dallas'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/small-fleet-dispatch'
     | '/step-deck-dispatch'
     | '/terms'
+    | '/truck-dispatch-dallas'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
     | '/api/public/contact'
@@ -336,6 +348,7 @@ export interface RootRouteChildren {
   SmallFleetDispatchRoute: typeof SmallFleetDispatchRoute
   StepDeckDispatchRoute: typeof StepDeckDispatchRoute
   TermsRoute: typeof TermsRoute
+  TruckDispatchDallasRoute: typeof TruckDispatchDallasRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
@@ -344,6 +357,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/truck-dispatch-dallas': {
+      id: '/truck-dispatch-dallas'
+      path: '/truck-dispatch-dallas'
+      fullPath: '/truck-dispatch-dallas'
+      preLoaderRoute: typeof TruckDispatchDallasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -536,6 +556,7 @@ const rootRouteChildren: RootRouteChildren = {
   SmallFleetDispatchRoute: SmallFleetDispatchRoute,
   StepDeckDispatchRoute: StepDeckDispatchRoute,
   TermsRoute: TermsRoute,
+  TruckDispatchDallasRoute: TruckDispatchDallasRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
