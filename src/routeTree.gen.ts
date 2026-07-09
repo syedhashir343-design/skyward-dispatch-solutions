@@ -45,6 +45,7 @@ import { Route as BoxTruckDispatchRouteImport } from './routes/box-truck-dispatc
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 import { Route as ApiPublicChatRouteImport } from './routes/api/public/chat'
 import { Route as ApiPublicCarrierSetupRouteImport } from './routes/api/public/carrier-setup'
@@ -231,6 +232,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
   path: '/api/public/contact',
@@ -288,6 +294,7 @@ export interface FileRoutesByFullPath {
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
   '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
   '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -330,6 +337,7 @@ export interface FileRoutesByTo {
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
   '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
   '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -373,6 +381,7 @@ export interface FileRoutesById {
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
   '/truck-dispatch-nashville': typeof TruckDispatchNashvilleRoute
   '/truck-dispatch-phoenix': typeof TruckDispatchPhoenixRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/api/public/carrier-setup': typeof ApiPublicCarrierSetupRoute
   '/api/public/chat': typeof ApiPublicChatRoute
@@ -417,6 +426,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-miami'
     | '/truck-dispatch-nashville'
     | '/truck-dispatch-phoenix'
+    | '/blog/$slug'
     | '/blog/'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -459,6 +469,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-miami'
     | '/truck-dispatch-nashville'
     | '/truck-dispatch-phoenix'
+    | '/blog/$slug'
     | '/blog'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -501,6 +512,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-miami'
     | '/truck-dispatch-nashville'
     | '/truck-dispatch-phoenix'
+    | '/blog/$slug'
     | '/blog/'
     | '/api/public/carrier-setup'
     | '/api/public/chat'
@@ -544,6 +556,7 @@ export interface RootRouteChildren {
   TruckDispatchMiamiRoute: typeof TruckDispatchMiamiRoute
   TruckDispatchNashvilleRoute: typeof TruckDispatchNashvilleRoute
   TruckDispatchPhoenixRoute: typeof TruckDispatchPhoenixRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicCarrierSetupRoute: typeof ApiPublicCarrierSetupRoute
   ApiPublicChatRoute: typeof ApiPublicChatRoute
@@ -805,6 +818,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/contact': {
       id: '/api/public/contact'
       path: '/api/public/contact'
@@ -872,6 +892,7 @@ const rootRouteChildren: RootRouteChildren = {
   TruckDispatchMiamiRoute: TruckDispatchMiamiRoute,
   TruckDispatchNashvilleRoute: TruckDispatchNashvilleRoute,
   TruckDispatchPhoenixRoute: TruckDispatchPhoenixRoute,
+  BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ApiPublicCarrierSetupRoute: ApiPublicCarrierSetupRoute,
   ApiPublicChatRoute: ApiPublicChatRoute,
