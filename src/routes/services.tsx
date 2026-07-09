@@ -83,7 +83,7 @@ function Services() {
                 <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
                   <s.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h3>
+                <h2 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               </div>
             ))}
