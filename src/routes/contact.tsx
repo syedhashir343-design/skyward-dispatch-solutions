@@ -18,6 +18,45 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:type", content: "website" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Skywards Solution",
+          url: "https://skyward-dispatch-solutions.lovable.app",
+          image: "https://skyward-dispatch-solutions.lovable.app/favicon.ico",
+          telephone: "+1-614-209-0850",
+          email: "sam@skywardssolution.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "317 Locust St",
+            addressLocality: "Toledo",
+            addressRegion: "OH",
+            postalCode: "43604",
+            addressCountry: "US",
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              opens: "00:00",
+              closes: "23:59",
+            },
+          ],
+          areaServed: { "@type": "Country", name: "United States" },
+        }),
+      },
+    ],
   }),
   component: Contact,
 });
