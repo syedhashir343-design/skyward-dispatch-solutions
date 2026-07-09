@@ -6,7 +6,7 @@ import fleet from "@/assets/fleet.jpg";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Skywards Solution — Toledo, Ohio Truck Dispatch Company" },
+      { title: "About Skywards Solution — Toledo Truck Dispatch" },
       {
         name: "description",
         content:

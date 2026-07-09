@@ -18,6 +18,45 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:type", content: "website" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Skywards Solution",
+          url: "https://skyward-dispatch-solutions.lovable.app",
+          image: "https://skyward-dispatch-solutions.lovable.app/favicon.ico",
+          telephone: "+1-614-209-0850",
+          email: "sam@skywardssolution.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "317 Locust St",
+            addressLocality: "Toledo",
+            addressRegion: "OH",
+            postalCode: "43604",
+            addressCountry: "US",
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              opens: "00:00",
+              closes: "23:59",
+            },
+          ],
+          areaServed: { "@type": "Country", name: "United States" },
+        }),
+      },
+    ],
   }),
   component: Contact,
 });
@@ -52,7 +91,7 @@ function Contact() {
               <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
                 <c.icon className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">{c.title}</h3>
+              <h2 className="mt-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">{c.title}</h2>
               {c.href ? (
                 <a href={c.href} className="text-brand mt-2 block text-lg font-semibold hover:underline">
                   {c.value}

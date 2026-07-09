@@ -104,6 +104,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Skywards Solution",
+          url: "https://skyward-dispatch-solutions.lovable.app",
+          logo: "https://skyward-dispatch-solutions.lovable.app/favicon.ico",
+          email: "sam@skywardssolution.com",
+          telephone: "+1-614-209-0850",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "317 Locust St",
+            addressLocality: "Toledo",
+            addressRegion: "OH",
+            postalCode: "43604",
+            addressCountry: "US",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Skywards Solution",
+          url: "https://skyward-dispatch-solutions.lovable.app",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,

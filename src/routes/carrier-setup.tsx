@@ -210,7 +210,7 @@ function CarrierSetup() {
           <aside className="flex flex-col gap-6">
             <div className="bg-gradient-brand text-brand-foreground rounded-3xl p-8 shadow-soft">
               <Truck className="h-8 w-8 text-brand-light" />
-              <h3 className="mt-4 text-2xl font-bold">What happens next?</h3>
+              <h2 className="mt-4 text-2xl font-bold">What happens next?</h2>
               <ul className="mt-5 space-y-4 text-white/90">
                 {[
                   "We review your MC/DOT and equipment within hours.",
@@ -227,7 +227,7 @@ function CarrierSetup() {
 
             <div className="rounded-3xl border border-border bg-card p-8">
               <ShieldCheck className="text-brand h-7 w-7" />
-              <h4 className="mt-4 text-lg font-semibold text-foreground">Your info is safe.</h4>
+              <h3 className="mt-4 text-lg font-semibold text-foreground">Your info is safe.</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 We never share carrier information with third parties outside the brokers required to
                 book your loads.
@@ -235,7 +235,7 @@ function CarrierSetup() {
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-8">
-              <h4 className="text-lg font-semibold text-foreground">Prefer to talk first?</h4>
+              <h3 className="text-lg font-semibold text-foreground">Prefer to talk first?</h3>
               <div className="mt-4 space-y-3 text-sm">
                 <a href="tel:+16142090850" className="flex items-center gap-3 text-foreground hover:text-brand">
                   <Phone className="h-4 w-4 text-brand-light" /> (614) 209-0850

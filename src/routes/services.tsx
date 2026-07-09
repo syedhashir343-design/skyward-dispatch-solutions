@@ -30,6 +30,35 @@ export const Route = createFileRoute("/services")({
       },
       { property: "og:type", content: "website" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          serviceType: "Truck Dispatch Services",
+          provider: {
+            "@type": "Organization",
+            name: "Skywards Solution",
+            url: "https://skyward-dispatch-solutions.lovable.app",
+            telephone: "+1-614-209-0850",
+          },
+          areaServed: { "@type": "Country", name: "United States" },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Dispatch Services",
+            itemListElement: [
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Dry Van Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reefer Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Flatbed Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Step-Deck Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rate Negotiation" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Paperwork Management" } },
+            ],
+          },
+        }),
+      },
+    ],
   }),
   component: Services,
 });
@@ -83,7 +112,7 @@ function Services() {
                 <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
                   <s.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h3>
+                <h2 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               </div>
             ))}

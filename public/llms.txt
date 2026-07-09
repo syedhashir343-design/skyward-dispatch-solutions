@@ -1,0 +1,11 @@
+# Skywards Solution
+
+> USA truck dispatch services for owner-operators and small carriers, based in Toledo, Ohio. Load booking, rate negotiation, paperwork and 24/7 support.
+
+## Pages
+
+- [Home](/): Overview of Skywards Solution dispatch services, live market rate board and testimonials.
+- [Services](/services): Dry van, reefer, flatbed and step-deck dispatch, rate negotiation, paperwork and 24/7 support.
+- [About](/about): Toledo, Ohio based dispatch team, values and approach for owner-operators.
+- [Carrier Setup](/carrier-setup): Submit MC/DOT and equipment info to start with a dedicated dispatcher.
+- [Contact](/contact): Phone, email, office address and hours for Skywards Solution dispatch.
