@@ -13,6 +13,7 @@ import { Route as TruckDispatchPhoenixRouteImport } from './routes/truck-dispatc
 import { Route as TruckDispatchMiamiRouteImport } from './routes/truck-dispatch-miami'
 import { Route as TruckDispatchMemphisRouteImport } from './routes/truck-dispatch-memphis'
 import { Route as TruckDispatchLosAngelesRouteImport } from './routes/truck-dispatch-los-angeles'
+import { Route as TruckDispatchKansasCityRouteImport } from './routes/truck-dispatch-kansas-city'
 import { Route as TruckDispatchIndianapolisRouteImport } from './routes/truck-dispatch-indianapolis'
 import { Route as TruckDispatchHoustonRouteImport } from './routes/truck-dispatch-houston'
 import { Route as TruckDispatchDenverRouteImport } from './routes/truck-dispatch-denver'
@@ -64,6 +65,11 @@ const TruckDispatchMemphisRoute = TruckDispatchMemphisRouteImport.update({
 const TruckDispatchLosAngelesRoute = TruckDispatchLosAngelesRouteImport.update({
   id: '/truck-dispatch-los-angeles',
   path: '/truck-dispatch-los-angeles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruckDispatchKansasCityRoute = TruckDispatchKansasCityRouteImport.update({
+  id: '/truck-dispatch-kansas-city',
+  path: '/truck-dispatch-kansas-city',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TruckDispatchIndianapolisRoute =
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
   '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
   '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
@@ -334,6 +342,7 @@ export interface FileRoutesById {
   '/truck-dispatch-denver': typeof TruckDispatchDenverRoute
   '/truck-dispatch-houston': typeof TruckDispatchHoustonRoute
   '/truck-dispatch-indianapolis': typeof TruckDispatchIndianapolisRoute
+  '/truck-dispatch-kansas-city': typeof TruckDispatchKansasCityRoute
   '/truck-dispatch-los-angeles': typeof TruckDispatchLosAngelesRoute
   '/truck-dispatch-memphis': typeof TruckDispatchMemphisRoute
   '/truck-dispatch-miami': typeof TruckDispatchMiamiRoute
@@ -374,6 +383,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-denver'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
     | '/truck-dispatch-los-angeles'
     | '/truck-dispatch-memphis'
     | '/truck-dispatch-miami'
@@ -412,6 +422,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-denver'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
     | '/truck-dispatch-los-angeles'
     | '/truck-dispatch-memphis'
     | '/truck-dispatch-miami'
@@ -450,6 +461,7 @@ export interface FileRouteTypes {
     | '/truck-dispatch-denver'
     | '/truck-dispatch-houston'
     | '/truck-dispatch-indianapolis'
+    | '/truck-dispatch-kansas-city'
     | '/truck-dispatch-los-angeles'
     | '/truck-dispatch-memphis'
     | '/truck-dispatch-miami'
@@ -489,6 +501,7 @@ export interface RootRouteChildren {
   TruckDispatchDenverRoute: typeof TruckDispatchDenverRoute
   TruckDispatchHoustonRoute: typeof TruckDispatchHoustonRoute
   TruckDispatchIndianapolisRoute: typeof TruckDispatchIndianapolisRoute
+  TruckDispatchKansasCityRoute: typeof TruckDispatchKansasCityRoute
   TruckDispatchLosAngelesRoute: typeof TruckDispatchLosAngelesRoute
   TruckDispatchMemphisRoute: typeof TruckDispatchMemphisRoute
   TruckDispatchMiamiRoute: typeof TruckDispatchMiamiRoute
@@ -527,6 +540,13 @@ declare module '@tanstack/react-router' {
       path: '/truck-dispatch-los-angeles'
       fullPath: '/truck-dispatch-los-angeles'
       preLoaderRoute: typeof TruckDispatchLosAngelesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truck-dispatch-kansas-city': {
+      id: '/truck-dispatch-kansas-city'
+      path: '/truck-dispatch-kansas-city'
+      fullPath: '/truck-dispatch-kansas-city'
+      preLoaderRoute: typeof TruckDispatchKansasCityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/truck-dispatch-indianapolis': {
@@ -785,6 +805,7 @@ const rootRouteChildren: RootRouteChildren = {
   TruckDispatchDenverRoute: TruckDispatchDenverRoute,
   TruckDispatchHoustonRoute: TruckDispatchHoustonRoute,
   TruckDispatchIndianapolisRoute: TruckDispatchIndianapolisRoute,
+  TruckDispatchKansasCityRoute: TruckDispatchKansasCityRoute,
   TruckDispatchLosAngelesRoute: TruckDispatchLosAngelesRoute,
   TruckDispatchMemphisRoute: TruckDispatchMemphisRoute,
   TruckDispatchMiamiRoute: TruckDispatchMiamiRoute,
