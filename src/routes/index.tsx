@@ -38,6 +38,9 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
     ],
+    links: [
+      { rel: "preload", as: "image", href: heroTruck, fetchpriority: "high" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -130,6 +133,8 @@ function Index() {
           alt="Semi-truck driving on a US highway at golden hour"
           width={1920}
           height={1088}
+          fetchpriority="high"
+          decoding="async"
           className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
         <div className="hero-overlay absolute inset-0 -z-10" />
