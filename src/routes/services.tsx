@@ -30,6 +30,35 @@ export const Route = createFileRoute("/services")({
       },
       { property: "og:type", content: "website" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          serviceType: "Truck Dispatch Services",
+          provider: {
+            "@type": "Organization",
+            name: "Skywards Solution",
+            url: "https://skyward-dispatch-solutions.lovable.app",
+            telephone: "+1-614-209-0850",
+          },
+          areaServed: { "@type": "Country", name: "United States" },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Dispatch Services",
+            itemListElement: [
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Dry Van Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Reefer Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Flatbed Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Step-Deck Dispatch" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Rate Negotiation" } },
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Paperwork Management" } },
+            ],
+          },
+        }),
+      },
+    ],
   }),
   component: Services,
 });
