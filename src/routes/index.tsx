@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { LiveLaneBoard } from "@/components/live-lane-board";
 import { LiveReviews } from "@/components/live-reviews";
 import {
   ArrowRight,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   FileText,
   HeadphonesIcon,
@@ -131,6 +134,60 @@ const testimonials = [
     name: "Herberth Lazo",
     role: "Owner-Operator · Power Only · Florida",
   },
+  {
+    quote:
+      "Trinity got my truck moving inside 48 hours. Consistent $13K weeks on dry van and every rate con is clean. Best decision I made this year.",
+    name: "Trinity Fry",
+    role: "Owner-Operator · Dry Van · North Carolina",
+  },
+  {
+    quote:
+      "Started with one box truck and Skywards had me at $12K weekly by month two. They understand hotshot and box freight, not just big rigs.",
+    name: "Deandre Campbell",
+    role: "Owner-Operator · Box Truck · Maryland",
+  },
+  {
+    quote:
+      "My dispatcher fights for every dollar. I’m averaging $14K a week on reefer out of the Southeast and detention actually gets paid now.",
+    name: "Stevenson Pierre",
+    role: "Owner-Operator · Reefer · Florida",
+  },
+  {
+    quote:
+      "Signed on with a beat-up truck and a fresh MC. Skywards had me at $12K gross in the first three weeks. Real people, real support.",
+    name: "Malik Robinson",
+    role: "New Authority · Dry Van · Michigan",
+  },
+  {
+    quote:
+      "Running a small fleet of 3 trucks and Skywards keeps every one of them at $13K+ weekly. Paperwork is spotless, invoicing is on time.",
+    name: "Elena Vasquez",
+    role: "Small Fleet Owner · 3 Trucks · Arizona",
+  },
+  {
+    quote:
+      "Been on flatbed for 12 years and thought I’d seen every dispatch scam. Skywards is the real deal. $14K weekly and honest conversations.",
+    name: "Bryan O’Connor",
+    role: "Owner-Operator · Flatbed · Pennsylvania",
+  },
+  {
+    quote:
+      "Reefer produce lanes out of the West Coast can be brutal. Skywards keeps me at $15K weeks and finds backhauls I couldn’t find alone.",
+    name: "Ravi Patel",
+    role: "Owner-Operator · Reefer · Washington",
+  },
+  {
+    quote:
+      "Hotshot with a gooseneck and they still keep me busy. $13K–$14K weekly average and I actually get home on weekends now.",
+    name: "Tavaris Booker",
+    role: "Owner-Operator · Hotshot · Alabama",
+  },
+  {
+    quote:
+      "Old dispatch had me on $2.10/mi garbage. Skywards renegotiated everything and I’m at $3.10 average, $14K weeks on step-deck. Night and day.",
+    name: "Grigor Petrosyan",
+    role: "Owner-Operator · Step Deck · Nevada",
+  },
 ];
 
 const faqs = [
@@ -155,6 +212,120 @@ const faqs = [
     a: "We are based in Toledo, Ohio and dispatch across the entire continental United States.",
   },
 ];
+
+function TestimonialsCarousel() {
+  const AUTO_MS = 5000;
+  const [visible, setVisible] = useState(1);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Responsive slides-per-view
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      setVisible(w >= 1024 ? 3 : w >= 640 ? 2 : 1);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
+  const maxIndex = Math.max(testimonials.length - visible, 0);
+
+  // Keep index in range when visible changes
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  // Auto-rotate every 5s
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i >= maxIndex ? 0 : i + 1));
+    }, AUTO_MS);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [paused, maxIndex]);
+
+  const go = (next: number) => {
+    const total = maxIndex + 1;
+    setIndex(((next % total) + total) % total);
+  };
+
+  const slideWidth = 100 / visible;
+
+  return (
+    <div
+      className="mt-14"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div className="relative overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-out"
+          style={{ transform: `translateX(-${index * slideWidth}%)` }}
+        >
+          {testimonials.map((t) => (
+            <figure
+              key={t.name}
+              className="shrink-0 px-3"
+              style={{ width: `${slideWidth}%` }}
+            >
+              <div className="flex h-full flex-col rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-md">
+                <blockquote className="text-base leading-relaxed text-white/90">
+                  “{t.quote}”
+                </blockquote>
+                <figcaption className="mt-6 border-t border-white/15 pt-4 text-white">
+                  <div className="font-semibold">{t.name}</div>
+                  <div className="text-sm text-white/60">{t.role}</div>
+                </figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={() => go(index - 1)}
+          aria-label="Previous testimonial"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => go(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              aria-current={i === index}
+              className={`h-2 rounded-full transition-all ${
+                i === index ? "w-6 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => go(index + 1)}
+          aria-label="Next testimonial"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function Index() {
   return (
@@ -372,22 +543,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-md"
-              >
-                <blockquote className="text-base leading-relaxed text-white/90">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-6 border-t border-white/15 pt-4 text-white">
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-white/60">{t.role}</div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <TestimonialsCarousel />
         </div>
       </section>
 
