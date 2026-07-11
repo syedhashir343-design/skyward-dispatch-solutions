@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BLOG_POSTS } from "@/data/blog-posts";
 
 export const Route = createFileRoute("/sitemap")({
   head: () => ({
@@ -96,6 +97,22 @@ function SitemapPage() {
             </ul>
           </div>
         ))}
+        <div className="sm:col-span-2">
+          <h2 className="text-xl font-semibold text-foreground">Blog Articles</h2>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            {BLOG_POSTS.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: p.slug }}
+                  className="text-brand hover:underline"
+                >
+                  {p.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <p className="mt-12 text-sm text-muted-foreground">
         XML sitemap for search engines:{" "}
