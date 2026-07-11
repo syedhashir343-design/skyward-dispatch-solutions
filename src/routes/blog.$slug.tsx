@@ -4,6 +4,29 @@ import { BLOG_POSTS, findPost, type BlogPost } from "@/data/blog-posts";
 
 const BASE = "https://www.skywardssolution.com";
 
+// Known author profiles for EEAT-quality Person schema + bio card.
+const AUTHOR_PROFILES: Record<string, { jobTitle: string; bio: string; sameAs?: string[] }> = {
+  "Syed Hashir Mazhar": {
+    jobTitle: "Founder & Logistics Operations Manager, Skywards Solution",
+    bio: "Syed Hashir Mazhar founded Skywards Solution to help owner operators and small fleets across the United States run like larger carriers — negotiated rates, tight load planning, and 24/7 dispatch. He writes about freight strategy, dispatch operations, and the day-to-day math that keeps trucks profitable.",
+    sameAs: ["https://www.linkedin.com/company/skywards-solution/"],
+  },
+};
+
+function authorSchema(name: string) {
+  const profile = AUTHOR_PROFILES[name];
+  if (profile) {
+    return {
+      "@type": "Person",
+      name,
+      jobTitle: profile.jobTitle,
+      worksFor: { "@type": "Organization", name: "Skywards Solution" },
+      ...(profile.sameAs ? { sameAs: profile.sameAs } : {}),
+    };
+  }
+  return { "@type": "Organization", name };
+}
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = findPost(params.slug);
@@ -48,7 +71,7 @@ export const Route = createFileRoute("/blog/$slug")({
             description: post.metaDescription,
             datePublished: post.publishedDate,
             dateModified: post.updatedDate ?? post.publishedDate,
-            author: { "@type": "Organization", name: post.author },
+            author: authorSchema(post.author),
             publisher: {
               "@type": "Organization",
               name: "Skywards Solution",
@@ -169,6 +192,17 @@ function BlogPostPage() {
               <h3 className="text-xl font-bold text-foreground">The bottom line</h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">{post.conclusion}</p>
             </div>
+
+            {AUTHOR_PROFILES[post.author] && (
+              <div className="mt-10 rounded-3xl border border-border bg-card p-7">
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand">About the author</p>
+                <p className="mt-3 text-lg font-bold text-foreground">{post.author}</p>
+                <p className="text-sm text-muted-foreground">{AUTHOR_PROFILES[post.author].jobTitle}</p>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {AUTHOR_PROFILES[post.author].bio}
+                </p>
+              </div>
+            )}
 
             <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8">
               <Link to="/blog" className="inline-flex items-center gap-2 text-brand hover:underline">
