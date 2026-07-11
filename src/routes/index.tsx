@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { LiveLaneBoard } from "@/components/live-lane-board";
+import { LiveReviews } from "@/components/live-reviews";
 import {
   ArrowRight,
   CheckCircle2,
@@ -342,6 +343,8 @@ function Index() {
               </div>
             ))}
           </div>
+
+          <LiveReviews />
         </div>
       </section>
 
