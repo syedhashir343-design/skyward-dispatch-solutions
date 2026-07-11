@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Award, Compass, Heart, Target, Truck } from "lucide-react";
+import { Award, Compass, Heart, Target, Truck, ShieldCheck, MapPin, Phone } from "lucide-react";
 import dispatcher from "@/assets/dispatcher.webp";
 import fleet from "@/assets/fleet.webp";
 
@@ -30,6 +30,35 @@ export const Route = createFileRoute("/about")({
           "@type": "AboutPage",
           name: "About Skywards Solution",
           url: "https://www.skywardssolution.com/about",
+          mainEntity: {
+            "@type": "Organization",
+            "@id": "https://www.skywardssolution.com/#business",
+            name: "Skywards Solution",
+            url: "https://www.skywardssolution.com",
+            foundingLocation: "Toledo, Ohio, United States",
+            areaServed: { "@type": "Country", name: "United States" },
+            knowsAbout: [
+              "Truck dispatch services",
+              "Owner operator dispatch",
+              "Dry van dispatch",
+              "Reefer dispatch",
+              "Flatbed dispatch",
+              "Hotshot dispatch",
+              "Power only dispatch",
+              "Step deck dispatch",
+              "Box truck dispatch",
+              "Freight rate negotiation",
+              "FMCSA compliance",
+              "Load planning",
+            ],
+            employee: {
+              "@type": "Person",
+              name: "Syed Hashir Mazhar",
+              jobTitle: "Founder & Logistics Operations Manager",
+              worksFor: { "@type": "Organization", name: "Skywards Solution" },
+              sameAs: ["https://www.linkedin.com/company/skywards-solution/"],
+            },
+          },
         }),
       },
       {
@@ -107,6 +136,55 @@ function About() {
 
       {/* VALUES */}
       <section className="bg-surface-muted py-24">
+        {/* LEADERSHIP / EEAT — inserted before values, uses existing design tokens */}
+        <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">Leadership</p>
+              <h2 className="mt-3 text-4xl font-bold text-foreground">
+                Meet the operator behind Skywards.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                Skywards Solution is led by <strong className="text-foreground">Syed Hashir Mazhar</strong>,
+                Founder and Logistics Operations Manager. He built the company after watching
+                too many good small carriers fold under bad rates and worse dispatch — and set
+                out to run the kind of transparent, carrier-first operation the industry was
+                missing.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                Today he oversees every dispatcher on the floor, every broker relationship, and
+                every rate confirmation that leaves the office. That hands-on standard is why
+                Skywards runs on transparent pricing, real settlement reports, and week-to-week
+                agreements — not lock-in contracts.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm">
+                <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 shadow-soft">
+                  <ShieldCheck className="text-brand h-4 w-4" /> USDOT-registered dispatch
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 shadow-soft">
+                  <MapPin className="text-brand h-4 w-4" /> Toledo, Ohio HQ
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 shadow-soft">
+                  <Phone className="text-brand h-4 w-4" /> 24/7 live dispatch
+                </span>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                { t: "Equipment expertise", d: "Dry van, reefer, flatbed, step deck, power only, hotshot and box truck — every major carrier equipment class dispatched daily." },
+                { t: "Nationwide broker network", d: "Active broker and direct-shipper relationships across all 48 contiguous states, with concentrated depth in TX, GA, IL, OH, CA and FL." },
+                { t: "Transparent operations", d: "Every rate confirmation shared before booking. Weekly settlement reports with gross, RPM, deadhead percentage and net." },
+                { t: "Compliance-forward", d: "CSA scores, HOS availability and IFTA windows monitored alongside revenue — because a carrier with clean scores keeps the freight open." },
+              ].map((c) => (
+                <div key={c.t} className="rounded-2xl bg-card p-6 shadow-soft">
+                  <h3 className="text-lg font-semibold text-foreground">{c.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">Our Values</p>
