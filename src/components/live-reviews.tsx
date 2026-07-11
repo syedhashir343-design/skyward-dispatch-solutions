@@ -36,6 +36,16 @@ export function LiveReviews() {
         { event: "INSERT", schema: "public", table: "client_reviews" },
         (payload) => {
           const r = payload.new as Review;
+          if (!(payload.new as { approved?: boolean }).approved) return;
+          setReviews((prev) => [r, ...prev.filter((p) => p.id !== r.id)].slice(0, 24));
+        },
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "client_reviews" },
+        (payload) => {
+          const r = payload.new as Review & { approved: boolean };
+          if (!r.approved) return;
           setReviews((prev) => [r, ...prev.filter((p) => p.id !== r.id)].slice(0, 24));
         },
       )
