@@ -429,22 +429,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-md"
-              >
-                <blockquote className="text-base leading-relaxed text-white/90">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-6 border-t border-white/15 pt-4 text-white">
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-white/60">{t.role}</div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <TestimonialsCarousel />
         </div>
       </section>
 
