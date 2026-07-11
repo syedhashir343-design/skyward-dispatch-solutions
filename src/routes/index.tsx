@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { LiveLaneBoard } from "@/components/live-lane-board";
 import { LiveReviews } from "@/components/live-reviews";
 import {
   ArrowRight,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   FileText,
   HeadphonesIcon,
@@ -130,6 +133,60 @@ const testimonials = [
       "Power-only was killing me until Skywards took over. Consistent $12K–$13K weeks, clean paperwork, and a dispatcher who answers on the first ring. That’s it — that’s the review.",
     name: "Herberth Lazo",
     role: "Owner-Operator · Power Only · Florida",
+  },
+  {
+    quote:
+      "Trinity got my truck moving inside 48 hours. Consistent $13K weeks on dry van and every rate con is clean. Best decision I made this year.",
+    name: "Trinity Fry",
+    role: "Owner-Operator · Dry Van · North Carolina",
+  },
+  {
+    quote:
+      "Started with one box truck and Skywards had me at $12K weekly by month two. They understand hotshot and box freight, not just big rigs.",
+    name: "Deandre Campbell",
+    role: "Owner-Operator · Box Truck · Maryland",
+  },
+  {
+    quote:
+      "My dispatcher fights for every dollar. I’m averaging $14K a week on reefer out of the Southeast and detention actually gets paid now.",
+    name: "Stevenson Pierre",
+    role: "Owner-Operator · Reefer · Florida",
+  },
+  {
+    quote:
+      "Signed on with a beat-up truck and a fresh MC. Skywards had me at $12K gross in the first three weeks. Real people, real support.",
+    name: "Malik Robinson",
+    role: "New Authority · Dry Van · Michigan",
+  },
+  {
+    quote:
+      "Running a small fleet of 3 trucks and Skywards keeps every one of them at $13K+ weekly. Paperwork is spotless, invoicing is on time.",
+    name: "Elena Vasquez",
+    role: "Small Fleet Owner · 3 Trucks · Arizona",
+  },
+  {
+    quote:
+      "Been on flatbed for 12 years and thought I’d seen every dispatch scam. Skywards is the real deal. $14K weekly and honest conversations.",
+    name: "Bryan O’Connor",
+    role: "Owner-Operator · Flatbed · Pennsylvania",
+  },
+  {
+    quote:
+      "Reefer produce lanes out of the West Coast can be brutal. Skywards keeps me at $15K weeks and finds backhauls I couldn’t find alone.",
+    name: "Ravi Patel",
+    role: "Owner-Operator · Reefer · Washington",
+  },
+  {
+    quote:
+      "Hotshot with a gooseneck and they still keep me busy. $13K–$14K weekly average and I actually get home on weekends now.",
+    name: "Tavaris Booker",
+    role: "Owner-Operator · Hotshot · Alabama",
+  },
+  {
+    quote:
+      "Old dispatch had me on $2.10/mi garbage. Skywards renegotiated everything and I’m at $3.10 average, $14K weeks on step-deck. Night and day.",
+    name: "Grigor Petrosyan",
+    role: "Owner-Operator · Step Deck · Nevada",
   },
 ];
 
