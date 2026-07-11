@@ -281,7 +281,7 @@ function TestimonialsCarousel() {
                 </blockquote>
                 <figcaption className="mt-6 border-t border-white/15 pt-4 text-white">
                   <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-white/60">{t.role}</div>
+                  <div className="text-sm text-white/80">{t.role}</div>
                 </figcaption>
               </div>
             </figure>

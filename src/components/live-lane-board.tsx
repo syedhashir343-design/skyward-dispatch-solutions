@@ -467,7 +467,7 @@ export function LiveLaneBoard({
                 </>
               )}
             </div>
-            <div className="mt-1 text-[10px] uppercase tracking-widest text-white/50 tabular-nums">
+            <div className="mt-1 text-[10px] uppercase tracking-widest text-white/75 tabular-nums">
               Updated {relative}
             </div>
           </div>
@@ -519,7 +519,7 @@ export function LiveLaneBoard({
 
         {/* Lane */}
         <div key={laneKey} className="mt-4 animate-fade-in">
-          <div className="text-[10px] font-semibold uppercase tracking-widest text-white/50">
+          <div className="text-[10px] font-semibold uppercase tracking-widest text-white/75">
             Featured lane · {truck}
           </div>
           <div className="mt-1 text-2xl font-bold leading-tight text-white">
@@ -532,19 +532,19 @@ export function LiveLaneBoard({
         {/* Metric grid */}
         <div className="mt-4 grid grid-cols-3 gap-2 text-center">
           <div className="rounded-xl bg-white/10 p-3">
-            <div className="text-[10px] uppercase tracking-widest text-white/60">Miles</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80">Miles</div>
             <div className="mt-1 text-lg font-semibold tabular-nums text-white">
               {formatInt(miles)}
             </div>
           </div>
           <div className="rounded-xl bg-white/10 p-3">
-            <div className="text-[10px] uppercase tracking-widest text-white/60">RPM</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80">RPM</div>
             <div className="mt-1 text-lg font-semibold tabular-nums text-white">
               {formatRpm(rpm)}
             </div>
           </div>
           <div className="rounded-xl bg-white/10 p-3">
-            <div className="text-[10px] uppercase tracking-widest text-white/60">Gross</div>
+            <div className="text-[10px] uppercase tracking-widest text-white/80">Gross</div>
             <div className="mt-1 text-lg font-semibold tabular-nums text-white">
               {formatMoney(gross)}
             </div>

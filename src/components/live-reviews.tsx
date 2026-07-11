@@ -105,7 +105,7 @@ export function LiveReviews() {
               maxLength={80}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50 outline-none focus:border-white/50"
+              className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/70 outline-none focus:border-white/50"
               placeholder="Full name"
             />
           </label>
@@ -116,7 +116,7 @@ export function LiveReviews() {
               maxLength={120}
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50 outline-none focus:border-white/50"
+              className="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/70 outline-none focus:border-white/50"
               placeholder="e.g. Owner-Operator · Reefer · Ohio"
             />
           </label>
@@ -131,10 +131,10 @@ export function LiveReviews() {
             rows={4}
             value={quote}
             onChange={(e) => setQuote(e.target.value)}
-            className="mt-1 w-full resize-y rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50 outline-none focus:border-white/50"
+            className="mt-1 w-full resize-y rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/70 outline-none focus:border-white/50"
             placeholder="Tell other carriers what your experience with Skywards has been like."
           />
-          <span className="mt-1 block text-right text-xs text-white/50">{quote.length}/600</span>
+          <span className="mt-1 block text-right text-xs text-white/75">{quote.length}/600</span>
         </label>
 
         {error && <p className="mt-2 text-sm text-red-300">{error}</p>}
@@ -178,7 +178,7 @@ export function LiveReviews() {
                 <blockquote className="text-sm leading-relaxed text-white/90">“{r.quote}”</blockquote>
                 <div className="mt-4 border-t border-white/15 pt-3 text-white">
                   <div className="text-sm font-semibold">{r.name}</div>
-                  {r.role && <div className="text-xs text-white/60">{r.role}</div>}
+                  {r.role && <div className="text-xs text-white/80">{r.role}</div>}
                 </div>
               </li>
             ))}
