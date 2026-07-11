@@ -84,21 +84,51 @@ const whyUs = [
 const testimonials = [
   {
     quote:
-      "Skywards turned my single truck operation around. Better loads, better rates, and they actually pick up the phone at 2 AM.",
+      "Skywards turned my single truck around. I’m running $13K–$14K a week gross consistently — better lanes, better rates, and they actually pick up the phone at 2 AM.",
     name: "Marcus D.",
-    role: "Owner-Operator · Dry Van",
+    role: "Owner-Operator · Dry Van · Ohio",
   },
   {
     quote:
-      "I run reefer out of the Midwest and these guys keep my truck full every week. Negotiation is on another level.",
+      "I run reefer out of the Midwest and they keep me at $14K–$15K weekly without deadhead nightmares. Negotiation is on another level.",
     name: "Yelena P.",
-    role: "Owner-Operator · Reefer",
+    role: "Owner-Operator · Reefer · Illinois",
   },
   {
     quote:
-      "Professional, transparent and fast. The paperwork support alone is worth it — I just drive and get paid.",
+      "Professional, transparent and fast. My flatbed is pulling steady $12K–$13K gross weekly and I don’t touch a load board anymore. I just drive and get paid.",
     name: "Anthony R.",
-    role: "Carrier · 6 Trucks",
+    role: "Owner-Operator · Flatbed · Texas",
+  },
+  {
+    quote:
+      "First month with Skywards I cleared $15K gross on my hotshot. They actually understand partial loads and RGN work — not just van freight.",
+    name: "Devon B.",
+    role: "Owner-Operator · Hotshot · Georgia",
+  },
+  {
+    quote:
+      "New authority, zero clue where to start. Skywards handled my carrier packets and had me booked on real broker loads in a week. Doing $12K weekly on day 30.",
+    name: "Rashid K.",
+    role: "New Authority · Dry Van · New Jersey",
+  },
+  {
+    quote:
+      "Two trucks, both running $13K a week each. Detention gets billed, TONUs get chased, and I actually see my kids on weekends now.",
+    name: "Priya S.",
+    role: "Small Fleet Owner · 2 Trucks · California",
+  },
+  {
+    quote:
+      "I switched from a big-name dispatch service that kept me on cheap freight. Skywards has me at $14K+ per week on step-deck and treats me like a partner, not a number.",
+    name: "Cole M.",
+    role: "Owner-Operator · Step Deck · Tennessee",
+  },
+  {
+    quote:
+      "Power-only was killing me until Skywards took over. Consistent $12K–$13K weeks, clean paperwork, and a dispatcher who answers on the first ring. That’s it — that’s the review.",
+    name: "Jamal W.",
+    role: "Owner-Operator · Power Only · Florida",
   },
 ];
 
