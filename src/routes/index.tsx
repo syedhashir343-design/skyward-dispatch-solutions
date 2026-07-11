@@ -362,10 +362,14 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center text-white">
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">Carrier voices</p>
-            <h2 className="mt-3 text-4xl font-bold sm:text-5xl">Drivers don’t leave us. They tell us why.</h2>
+            <h2 className="mt-3 text-4xl font-bold sm:text-5xl">$12K–$15K weeks. Consistently.</h2>
+            <p className="mt-4 text-base leading-relaxed text-white/80">
+              Real owner-operators and small fleets running with Skywards Solution — hitting
+              $12,000 to $15,000 in gross revenue per truck, week after week.
+            </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {testimonials.map((t) => (
               <figure
                 key={t.name}
