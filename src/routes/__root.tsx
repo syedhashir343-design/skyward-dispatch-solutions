@@ -89,7 +89,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // Google: Search Console → Add property → URL prefix → HTML tag.
       // Bing:   Webmaster Tools → Add site → Meta tag (or "Import from GSC").
       { name: "google-site-verification", content: "CzNXGFYAHphiIi4eRwhMhInffOQPiIRzsc5rc6gOUGY" },
-      { name: "msvalidate.01", content: "REPLACE_WITH_BING_VERIFICATION_CODE" },
+      { name: "msvalidate.01", content: "3481BF4F6DF1CA677EECE9A3B18F3256" },
       { property: "og:title", content: "Skywards Solution — Truck Dispatch Services USA" },
       { property: "og:description", content: "Toledo-based USA truck dispatch for owner-operators & small fleets — load booking, rate negotiation, paperwork & 24/7 dispatcher support." },
       { property: "og:type", content: "website" },
