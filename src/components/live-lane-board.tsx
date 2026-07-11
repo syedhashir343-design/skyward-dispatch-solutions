@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, TrendingUp, Zap } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown, TrendingUp, Zap, Wifi, WifiOff } from "lucide-react";
 
 type Lane = { from: string; to: string; miles: number };
 
@@ -116,22 +116,39 @@ const LANES: Lane[] = [
   { from: "Newark, NJ", to: "Dallas, TX", miles: 1550 },
 ];
 
-type TruckType = "Dry Van" | "Reefer" | "Flatbed" | "Step Deck";
+type TruckType =
+  | "Dry Van"
+  | "Reefer"
+  | "Flatbed"
+  | "Hotshot"
+  | "Box Truck"
+  | "Power Only";
 
-const TRUCK_TYPES: TruckType[] = ["Dry Van", "Reefer", "Flatbed", "Step Deck"];
+const TRUCK_TYPES: TruckType[] = [
+  "Dry Van",
+  "Reefer",
+  "Flatbed",
+  "Hotshot",
+  "Box Truck",
+  "Power Only",
+];
 
 const RPM_RANGE: Record<TruckType, [number, number]> = {
   "Dry Van": [3.5, 4.1],
   Reefer: [3.8, 4.5],
   Flatbed: [3.9, 4.8],
-  "Step Deck": [4.0, 5.0],
+  Hotshot: [4.2, 5.2],
+  "Box Truck": [2.8, 3.6],
+  "Power Only": [3.2, 4.0],
 };
 
 const WEEKLY_RANGE: Record<TruckType, [number, number]> = {
   "Dry Van": [12000, 13800],
   Reefer: [12800, 14600],
   Flatbed: [13200, 15400],
-  "Step Deck": [13800, 16000],
+  Hotshot: [11500, 14500],
+  "Box Truck": [8500, 11000],
+  "Power Only": [10500, 13000],
 };
 
 const MARKET_NOTES: Record<TruckType, string[]> = {
@@ -156,16 +173,30 @@ const MARKET_NOTES: Record<TruckType, string[]> = {
     "Hot Texas Market",
     "High Spot Rates",
   ],
-  "Step Deck": [
-    "Heavy Equipment Loads",
+  Hotshot: [
+    "Urgent Expedited Loads",
+    "Oilfield Demand High",
+    "Premium Hotshot Rates",
     "Limited Capacity",
-    "Flatbed Construction Season",
-    "High Paying Freight",
+    "Hot Texas Market",
+  ],
+  "Box Truck": [
+    "Last-Mile Surge",
+    "Amazon Relay Demand",
+    "Strong Metro Market",
+    "Steady Weekly Volume",
+    "Regional Freight Hot",
+  ],
+  "Power Only": [
+    "Drop & Hook Surge",
+    "Trailer Pool Demand",
+    "Steady Lane Volume",
+    "Strong Midwest Market",
     "High Spot Rates",
   ],
 };
 
-const LIFTS = ["+12%", "+14%", "+16%", "+18%", "+21%", "+24%", "+27%"];
+const LIFTS = ["+8%", "+11%", "+14%", "+16%", "+18%", "+21%", "+24%", "+27%"];
 
 function rand(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -188,6 +219,7 @@ type Snapshot = {
   weekly: number;
   note: string;
   lift: string;
+  timestamp: number;
 };
 
 function buildSnapshot(truck: TruckType, prevLane?: Lane, prevNote?: string): Snapshot {
@@ -201,11 +233,10 @@ function buildSnapshot(truck: TruckType, prevLane?: Lane, prevNote?: string): Sn
   const weekly = Math.round(rand(wMin, wMax) / 50) * 50;
   const note = pick(MARKET_NOTES[truck], prevNote);
   const lift = pick(LIFTS);
-  return { lane, rpm, miles, gross, weekly, note, lift };
+  return { lane, rpm, miles, gross, weekly, note, lift, timestamp: Date.now() };
 }
 
-// Deterministic snapshot for the initial render — must match on server and client
-// to avoid hydration mismatch. Randomization happens after mount.
+// Deterministic snapshot for the initial SSR render.
 function initialSnapshot(truck: TruckType): Snapshot {
   const lane = LANES[0];
   const [rMin, rMax] = RPM_RANGE[truck];
@@ -222,8 +253,27 @@ function initialSnapshot(truck: TruckType): Snapshot {
     weekly,
     note: MARKET_NOTES[truck][0],
     lift: LIFTS[3],
+    timestamp: 0,
   };
 }
+
+/**
+ * Pluggable market feed. Swap `sampleFeed` for a real DAT / Truckstop /
+ * TruckTools / Sylectus adapter later — the component only needs `next()`.
+ */
+type MarketFeed = {
+  next(truck: TruckType, prev?: Snapshot): Promise<Snapshot>;
+};
+
+const sampleFeed: MarketFeed = {
+  async next(truck, prev) {
+    // Simulate network latency & occasional dropout so the "Reconnecting…"
+    // path is exercised in production too.
+    await new Promise((r) => setTimeout(r, 250 + Math.random() * 400));
+    if (Math.random() < 0.04) throw new Error("feed timeout");
+    return buildSnapshot(truck, prev?.lane, prev?.note);
+  },
+};
 
 function useCountUp(target: number, duration = 700) {
   const [value, setValue] = useState(target);
@@ -245,6 +295,22 @@ function useCountUp(target: number, duration = 700) {
   return value;
 }
 
+function useRelativeTime(ts: number) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!ts) return;
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, [ts]);
+  if (!ts) return "just now";
+  const s = Math.max(0, Math.round((now - ts) / 1000));
+  if (s < 5) return "just now";
+  if (s < 60) return `${s}s ago`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ${s % 60}s ago`;
+  return `${Math.floor(m / 60)}h ago`;
+}
+
 function formatInt(n: number) {
   return Math.round(n).toLocaleString("en-US");
 }
@@ -255,65 +321,154 @@ function formatRpm(n: number) {
   return "$" + n.toFixed(2);
 }
 
-export function LiveLaneBoard() {
+// Config: rotate between 30s and 3 minutes.
+const MIN_INTERVAL_MS = 30_000;
+const MAX_INTERVAL_MS = 180_000;
+
+export function LiveLaneBoard({
+  feed = sampleFeed,
+  minIntervalMs = MIN_INTERVAL_MS,
+  maxIntervalMs = MAX_INTERVAL_MS,
+}: {
+  feed?: MarketFeed;
+  minIntervalMs?: number;
+  maxIntervalMs?: number;
+} = {}) {
   const [truck, setTruck] = useState<TruckType>("Dry Van");
   const [open, setOpen] = useState(false);
   const [snap, setSnap] = useState<Snapshot>(() => initialSnapshot("Dry Van"));
   const [mounted, setMounted] = useState(false);
   const [pulse, setPulse] = useState(0);
+  const [status, setStatus] = useState<"live" | "reconnecting">("live");
+  const inFlight = useRef(false);
+  const truckRef = useRef(truck);
+  const snapRef = useRef(snap);
+  truckRef.current = truck;
+  snapRef.current = snap;
 
-  // Randomize only after mount to keep SSR HTML deterministic
+  const fetchNext = useCallback(
+    async (immediate = false) => {
+      if (inFlight.current) return;
+      inFlight.current = true;
+      let attempt = 0;
+      // Retry loop with backoff — never gives up, never reloads page.
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        try {
+          const next = await feed.next(truckRef.current, snapRef.current);
+          setSnap(next);
+          setPulse((p) => p + 1);
+          setStatus("live");
+          break;
+        } catch {
+          setStatus("reconnecting");
+          attempt++;
+          const backoff = Math.min(15_000, 1000 * 2 ** attempt);
+          await new Promise((r) => setTimeout(r, backoff));
+        }
+      }
+      inFlight.current = false;
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      immediate;
+    },
+    [feed],
+  );
+
+  // Initial post-mount fetch (avoids SSR hydration mismatch).
   useEffect(() => {
     setMounted(true);
-    setSnap((prev) => buildSnapshot("Dry Van", prev.lane, prev.note));
-    setPulse((p) => p + 1);
-  }, []);
+    void fetchNext(true);
+  }, [fetchNext]);
 
-  // rotate lane every 3-5 minutes
+  // Background rotation — random interval between min/max, resets on truck change.
   useEffect(() => {
     let timeoutId: number;
     const schedule = () => {
-      const delay = (3 + Math.random() * 2) * 60 * 1000;
-      timeoutId = window.setTimeout(() => {
-        setSnap((prev) => buildSnapshot(truck, prev.lane, prev.note));
-        setPulse((p) => p + 1);
+      const delay = minIntervalMs + Math.random() * (maxIntervalMs - minIntervalMs);
+      timeoutId = window.setTimeout(async () => {
+        // Pause when tab is hidden to save battery/network — resume on visibility.
+        if (typeof document !== "undefined" && document.hidden) {
+          schedule();
+          return;
+        }
+        await fetchNext();
         schedule();
       }, delay);
     };
     schedule();
     return () => window.clearTimeout(timeoutId);
-  }, [truck]);
+  }, [truck, fetchNext, minIntervalMs, maxIntervalMs]);
 
-  // instant refresh on truck change (skip first mount — handled above)
+  // Instant refresh on truck change (skip first mount).
   useEffect(() => {
     if (!mounted) return;
-    setSnap((prev) => buildSnapshot(truck, prev.lane, prev.note));
-    setPulse((p) => p + 1);
+    void fetchNext(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [truck]);
+
+  // Refresh when the tab regains focus after being hidden.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const onVis = () => {
+      if (!document.hidden) void fetchNext();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [fetchNext]);
 
   const miles = useCountUp(snap.miles);
   const rpm = useCountUp(snap.rpm);
   const gross = useCountUp(snap.gross);
   const weekly = useCountUp(snap.weekly);
+  const relative = useRelativeTime(snap.timestamp);
 
-  const laneKey = useMemo(() => `${snap.lane.from}->${snap.lane.to}-${pulse}`, [snap.lane, pulse]);
+  const laneKey = useMemo(
+    () => `${snap.lane.from}->${snap.lane.to}-${pulse}`,
+    [snap.lane, pulse],
+  );
+
+  const isLive = status === "live";
 
   return (
-    <div className="relative ml-auto w-full max-w-md">
+    <div
+      className="relative ml-auto w-full max-w-md"
+      style={{ contain: "layout paint" }}
+      aria-live="polite"
+      aria-atomic="false"
+    >
       <div className="shadow-elegant rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl">
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-light">
+            <div
+              className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wider ${
+                isLive ? "text-brand-light" : "text-amber-300"
+              }`}
+            >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                {isLive && (
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                )}
+                <span
+                  className={`relative inline-flex h-2 w-2 rounded-full ${
+                    isLive ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
+                  }`}
+                />
               </span>
-              Live Market Board
+              {isLive ? (
+                <>
+                  <Wifi className="h-3 w-3" />
+                  LIVE
+                </>
+              ) : (
+                <>
+                  <WifiOff className="h-3 w-3" />
+                  Reconnecting…
+                </>
+              )}
             </div>
-            <div className="mt-1 text-[10px] uppercase tracking-widest text-white/50">
-              Spot rate snapshot
+            <div className="mt-1 text-[10px] uppercase tracking-widest text-white/50 tabular-nums">
+              Updated {relative}
             </div>
           </div>
 
@@ -328,12 +483,14 @@ export function LiveLaneBoard() {
               aria-expanded={open}
             >
               {truck}
-              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+              />
             </button>
             {open && (
               <ul
                 role="listbox"
-                className="absolute right-0 top-full z-20 mt-2 w-40 origin-top-right animate-scale-in overflow-hidden rounded-2xl border border-white/15 bg-slate-900/95 shadow-elegant backdrop-blur-xl"
+                className="absolute right-0 top-full z-20 mt-2 w-44 origin-top-right animate-scale-in overflow-hidden rounded-2xl border border-white/15 bg-slate-900/95 shadow-elegant backdrop-blur-xl"
               >
                 {TRUCK_TYPES.map((t) => (
                   <li key={t}>
@@ -349,7 +506,9 @@ export function LiveLaneBoard() {
                       }`}
                     >
                       {t}
-                      {t === truck && <span className="h-1.5 w-1.5 rounded-full bg-brand-light" />}
+                      {t === truck && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-light" />
+                      )}
                     </button>
                   </li>
                 ))}
@@ -361,7 +520,7 @@ export function LiveLaneBoard() {
         {/* Lane */}
         <div key={laneKey} className="mt-4 animate-fade-in">
           <div className="text-[10px] font-semibold uppercase tracking-widest text-white/50">
-            Featured lane
+            Featured lane · {truck}
           </div>
           <div className="mt-1 text-2xl font-bold leading-tight text-white">
             {snap.lane.from}
