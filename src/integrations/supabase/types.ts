@@ -56,6 +56,33 @@ export type Database = {
         }
         Relationships: []
       }
+      client_reviews: {
+        Row: {
+          approved: boolean
+          created_at: string
+          id: string
+          name: string
+          quote: string
+          role: string | null
+        }
+        Insert: {
+          approved?: boolean
+          created_at?: string
+          id?: string
+          name: string
+          quote: string
+          role?: string | null
+        }
+        Update: {
+          approved?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+          quote?: string
+          role?: string | null
+        }
+        Relationships: []
+      }
       perf_metrics: {
         Row: {
           cls: number | null
