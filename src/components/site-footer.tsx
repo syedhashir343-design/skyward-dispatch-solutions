@@ -83,7 +83,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-white/60 sm:flex-row sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-white/80 sm:flex-row sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} Skywards Solution. All rights reserved.</p>
           <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
