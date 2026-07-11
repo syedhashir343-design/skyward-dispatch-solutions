@@ -213,6 +213,120 @@ const faqs = [
   },
 ];
 
+function TestimonialsCarousel() {
+  const AUTO_MS = 5000;
+  const [visible, setVisible] = useState(1);
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Responsive slides-per-view
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      setVisible(w >= 1024 ? 3 : w >= 640 ? 2 : 1);
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
+  const maxIndex = Math.max(testimonials.length - visible, 0);
+
+  // Keep index in range when visible changes
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  // Auto-rotate every 5s
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i >= maxIndex ? 0 : i + 1));
+    }, AUTO_MS);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [paused, maxIndex]);
+
+  const go = (next: number) => {
+    const total = maxIndex + 1;
+    setIndex(((next % total) + total) % total);
+  };
+
+  const slideWidth = 100 / visible;
+
+  return (
+    <div
+      className="mt-14"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      <div className="relative overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-out"
+          style={{ transform: `translateX(-${index * slideWidth}%)` }}
+        >
+          {testimonials.map((t) => (
+            <figure
+              key={t.name}
+              className="shrink-0 px-3"
+              style={{ width: `${slideWidth}%` }}
+            >
+              <div className="flex h-full flex-col rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-md">
+                <blockquote className="text-base leading-relaxed text-white/90">
+                  “{t.quote}”
+                </blockquote>
+                <figcaption className="mt-6 border-t border-white/15 pt-4 text-white">
+                  <div className="font-semibold">{t.name}</div>
+                  <div className="text-sm text-white/60">{t.role}</div>
+                </figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={() => go(index - 1)}
+          aria-label="Previous testimonial"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => go(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              aria-current={i === index}
+              className={`h-2 rounded-full transition-all ${
+                i === index ? "w-6 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => go(index + 1)}
+          aria-label="Next testimonial"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   return (
     <>
