@@ -23,6 +23,8 @@ export type BlogPost = {
 
 const AUTHOR = "Skywards Solution Editorial";
 const DATE = "2026-06-15";
+const FOUNDER = "Syed Hashir Mazhar";
+const DATE_D2 = "2026-07-11";
 
 export const BLOG_POSTS: BlogPost[] = [
   {
