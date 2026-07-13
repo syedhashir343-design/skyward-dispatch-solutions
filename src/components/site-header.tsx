@@ -29,13 +29,27 @@ export function SiteHeader() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-soft"
-          : "bg-transparent",
+          ? "bg-background/70 backdrop-blur-xl saturate-150 border-b border-border/60 shadow-soft py-0"
+          : "bg-background/30 backdrop-blur-md",
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div
+        className={cn(
+          "mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300",
+          scrolled ? "py-2" : "py-3",
+        )}
+      >
         <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Skywards Solution" className="h-12 w-auto" width={48} height={48} />
+          <img
+            src={logo}
+            alt="Skywards Solution"
+            className={cn(
+              "w-auto transition-all duration-300 drop-shadow-[0_4px_16px_rgba(30,64,175,0.25)]",
+              scrolled ? "h-10" : "h-12",
+            )}
+            width={48}
+            height={48}
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -44,8 +58,8 @@ export function SiteHeader() {
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
-              className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-secondary hover:text-brand"
-              activeProps={{ className: "text-brand bg-secondary" }}
+              className="story-link relative rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-brand"
+              activeProps={{ className: "text-brand" }}
             >
               {item.label}
             </Link>
@@ -61,7 +75,7 @@ export function SiteHeader() {
           </a>
           <Link
             to="/carrier-setup"
-            className="bg-gradient-brand text-brand-foreground inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-semibold shadow-soft transition-transform hover:scale-105"
+            className="btn-magnetic shimmer-on-hover bg-gradient-brand-animated text-brand-foreground inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-semibold shadow-elegant"
           >
             Get Started
           </Link>
