@@ -247,7 +247,7 @@ function TestimonialsCarousel() {
 
   return (
     <div
-      className="mt-14"
+      className="mx-auto mt-14 max-w-2xl"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
