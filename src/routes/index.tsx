@@ -331,11 +331,24 @@ function Index() {
           className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
         <div className="hero-overlay absolute inset-0 -z-10" />
+        <div className="bg-mesh-brand pointer-events-none absolute inset-0 -z-10 opacity-40 mix-blend-screen" aria-hidden />
+        <svg
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-30"
+          viewBox="0 0 1200 600"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path d="M0,480 C200,420 380,520 560,440 C740,360 920,500 1200,380" fill="none" stroke="oklch(0.85 0.14 240)" strokeWidth="2" className="animate-route" />
+          <path d="M0,520 C240,460 420,560 620,500 C820,440 980,540 1200,470" fill="none" stroke="oklch(0.9 0.12 240)" strokeWidth="1.5" className="animate-route" style={{ animationDuration: "9s" }} />
+        </svg>
 
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 md:py-32 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-40">
-          <div className="text-white">
+          <div className="text-white animate-reveal">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-light" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-light opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-light" />
+              </span>
               USA Nationwide Truck Dispatch
             </span>
             <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-[4rem]">
@@ -348,14 +361,14 @@ function Index() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 to="/carrier-setup"
-                className="bg-gradient-brand text-brand-foreground group inline-flex h-14 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold shadow-elegant transition-transform hover:scale-[1.03]"
+                className="bg-gradient-brand-animated text-brand-foreground shimmer-on-hover group inline-flex h-14 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold shadow-elegant transition-transform hover:scale-[1.03]"
               >
                 Get Started
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex h-14 items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
+                className="inline-flex h-14 items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20 hover:border-white/60 hover:scale-[1.02]"
               >
                 Contact Us
               </Link>
@@ -367,7 +380,7 @@ function Index() {
                 { v: "24/7", l: "Dispatch Support" },
                 { v: "100%", l: "Carrier-First" },
               ].map((s) => (
-                <div key={s.l}>
+                <div key={s.l} className="animate-reveal" style={{ animationDelay: "150ms" }}>
                   <div className="text-3xl font-bold text-white">{s.v}</div>
                   <div className="mt-1 text-xs uppercase tracking-wider text-white/70">{s.l}</div>
                 </div>
@@ -375,7 +388,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:block animate-float">
             <LiveLaneBoard />
           </div>
         </div>
@@ -412,14 +425,14 @@ function Index() {
             {services.map((s) => (
               <div
                 key={s.title}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:shadow-elegant"
+                className="card-premium group relative overflow-hidden rounded-2xl border border-border bg-card p-7"
               >
-                <div className="bg-gradient-brand text-brand-foreground flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
+                <div className="bg-gradient-brand text-brand-foreground icon-tile flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
                   <s.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <div className="bg-brand-light/0 group-hover:bg-brand-light/10 absolute -right-12 -top-12 h-32 w-32 rounded-full transition-colors" />
+                <div className="bg-brand-light/0 group-hover:bg-brand-light/15 absolute -right-12 -top-12 h-32 w-32 rounded-full blur-2xl transition-all duration-500" />
               </div>
             ))}
           </div>
@@ -494,8 +507,8 @@ function Index() {
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {whyUs.map((w) => (
-              <div key={w.title} className="rounded-2xl bg-surface-muted p-7">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand text-brand-foreground">
+              <div key={w.title} className="group hover-lift rounded-2xl border border-border bg-surface-muted p-7">
+                <div className="icon-tile flex h-11 w-11 items-center justify-center rounded-xl bg-brand text-brand-foreground shadow-soft">
                   <w.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-foreground">{w.title}</h3>
@@ -569,8 +582,9 @@ function Index() {
 
       {/* CTA */}
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="bg-gradient-brand shadow-elegant relative mx-auto max-w-7xl overflow-hidden rounded-3xl px-8 py-16 text-center text-brand-foreground sm:px-16">
+        <div className="bg-gradient-brand-animated shadow-elegant relative mx-auto max-w-7xl overflow-hidden rounded-3xl px-8 py-16 text-center text-brand-foreground sm:px-16">
           <div className="bg-brand-light/30 absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl" />
+          <div className="bg-white/10 absolute -bottom-24 -right-24 h-80 w-80 rounded-full blur-3xl animate-float" />
           <h2 className="relative text-4xl font-bold sm:text-5xl">Ready to keep your truck loaded?</h2>
           <p className="relative mx-auto mt-5 max-w-2xl text-lg text-white/85">
             Get matched with a dedicated dispatcher today. No setup fees, no contracts — just better
@@ -579,13 +593,13 @@ function Index() {
           <div className="relative mt-9 flex flex-wrap justify-center gap-3">
             <Link
               to="/carrier-setup"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-semibold text-brand shadow-soft transition-transform hover:scale-105"
+              className="shimmer-on-hover inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-semibold text-brand shadow-soft transition-transform hover:scale-105"
             >
               Start Carrier Setup <ArrowRight className="h-5 w-5" />
             </Link>
             <a
               href="tel:+16142090850"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white/20"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-8 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20 hover:scale-[1.02]"
             >
               <Phone className="h-5 w-5" /> (614) 209-0850
             </a>
