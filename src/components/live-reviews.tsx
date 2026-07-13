@@ -155,10 +155,6 @@ export function LiveReviews() {
 
       <div>
         <div className="mb-4 flex items-center gap-2 text-white/80">
-          <span className="relative inline-flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-          </span>
           <span className="text-xs font-semibold uppercase tracking-widest">
             Live · {reviews.length} recent review{reviews.length === 1 ? "" : "s"}
           </span>
