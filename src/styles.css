@@ -217,3 +217,139 @@
 @utility animate-float {
   animation: float-slow 6s ease-in-out infinite;
 }
+
+/* ============================================================
+ * Premium visual enhancement utilities (non-invasive).
+ * Apply via className — no existing markup or logic changes.
+ * ============================================================ */
+
+@keyframes reveal-up {
+  0%   { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@utility animate-reveal {
+  animation: reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gradient-pan {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@utility bg-gradient-brand-animated {
+  background-image: var(--gradient-brand);
+  background-size: 200% 200%;
+  animation: gradient-pan 8s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(220%) skewX(-12deg); }
+}
+@utility shimmer-on-hover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+@utility shimmer-on-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: translateX(-120%) skewX(-12deg);
+  pointer-events: none;
+  z-index: 1;
+}
+@utility shimmer-on-hover:hover::after {
+  animation: shimmer-sweep 0.9s ease-out;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@utility hover-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease;
+  will-change: transform;
+}
+@utility hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-elegant);
+}
+
+@utility card-premium {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease;
+}
+@utility card-premium::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    color-mix(in oklab, var(--brand-light) 55%, transparent),
+    transparent 40%,
+    color-mix(in oklab, var(--brand) 40%, transparent));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+@utility card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-elegant);
+}
+@utility card-premium:hover::before {
+  opacity: 1;
+}
+
+@keyframes route-dash {
+  to { stroke-dashoffset: -400; }
+}
+@utility animate-route {
+  stroke-dasharray: 6 10;
+  animation: route-dash 6s linear infinite;
+}
+
+@keyframes mesh-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@utility bg-mesh-brand {
+  background:
+    radial-gradient(60% 50% at 15% 20%, color-mix(in oklab, var(--brand-light) 30%, transparent), transparent 60%),
+    radial-gradient(50% 45% at 85% 30%, color-mix(in oklab, var(--brand) 35%, transparent), transparent 65%),
+    radial-gradient(55% 45% at 50% 90%, color-mix(in oklab, var(--brand-dark) 40%, transparent), transparent 70%);
+  animation: mesh-drift 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+@utility icon-tile {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease;
+}
+.group:hover .icon-tile {
+  transform: translateY(-2px) scale(1.06) rotate(-3deg);
+  box-shadow: var(--shadow-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-reveal,
+  .bg-gradient-brand-animated,
+  .bg-mesh-brand,
+  .animate-route {
+    animation: none !important;
+  }
+}
