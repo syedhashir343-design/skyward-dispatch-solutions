@@ -425,14 +425,15 @@ function Index() {
             {services.map((s) => (
               <div
                 key={s.title}
-                className="card-premium group relative overflow-hidden rounded-2xl border border-border bg-card p-7"
+                className="card-premium tilt-3d group relative overflow-hidden rounded-2xl border border-border bg-card p-7 shadow-depth"
               >
-                <div className="bg-gradient-brand text-brand-foreground icon-tile flex h-12 w-12 items-center justify-center rounded-xl shadow-soft">
+                <div className="bg-gradient-brand text-brand-foreground icon-tile flex h-12 w-12 items-center justify-center rounded-xl shadow-glow">
                   <s.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-semibold text-foreground">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                 <div className="bg-brand-light/0 group-hover:bg-brand-light/15 absolute -right-12 -top-12 h-32 w-32 rounded-full blur-2xl transition-all duration-500" />
+                <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brand-light/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
           </div>
