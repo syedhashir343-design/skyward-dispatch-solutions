@@ -215,21 +215,10 @@ const faqs = [
 
 function TestimonialsCarousel() {
   const AUTO_MS = 5000;
-  const [visible, setVisible] = useState(1);
+  const visible = 1;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Responsive slides-per-view
-  useEffect(() => {
-    const compute = () => {
-      const w = window.innerWidth;
-      setVisible(w >= 1024 ? 3 : w >= 640 ? 2 : 1);
-    };
-    compute();
-    window.addEventListener("resize", compute);
-    return () => window.removeEventListener("resize", compute);
-  }, []);
 
   const maxIndex = Math.max(testimonials.length - visible, 0);
 
