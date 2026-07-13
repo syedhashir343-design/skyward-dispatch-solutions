@@ -88,7 +88,7 @@ export function LiveReviews() {
     <div className="mt-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <form
         onSubmit={submit}
-        className="rounded-2xl border border-white/15 bg-white/10 p-7 backdrop-blur-md"
+        className="rounded-2xl border border-white/20 bg-slate-900/70 p-7 shadow-xl backdrop-blur-md"
         aria-label="Leave a review"
       >
         <h3 className="text-xl font-semibold text-white">Leave a review</h3>
