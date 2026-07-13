@@ -332,6 +332,9 @@ function Index() {
         />
         <div className="hero-overlay absolute inset-0 -z-10" />
         <div className="bg-mesh-brand pointer-events-none absolute inset-0 -z-10 opacity-40 mix-blend-screen" aria-hidden />
+        <div className="bg-grid-brand pointer-events-none absolute inset-0 -z-10 opacity-30" aria-hidden />
+        <div className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-64 w-64 rounded-full bg-brand-light/20 blur-3xl animate-drift" aria-hidden />
+        <div className="pointer-events-none absolute -right-32 top-10 -z-10 h-72 w-72 rounded-full bg-brand/30 blur-3xl animate-drift" style={{ animationDelay: "2s" }} aria-hidden />
         <svg
           className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-30"
           viewBox="0 0 1200 600"
