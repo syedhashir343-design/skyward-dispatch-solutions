@@ -34,6 +34,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PowerOnlyDispatchRouteImport } from './routes/power-only-dispatch'
 import { Route as OwnerOperatorDispatchRouteImport } from './routes/owner-operator-dispatch'
 import { Route as LocationsRouteImport } from './routes/locations'
+import { Route as LearningCenterRouteImport } from './routes/learning-center'
 import { Route as HotshotDispatchRouteImport } from './routes/hotshot-dispatch'
 import { Route as FlatbedDispatchRouteImport } from './routes/flatbed-dispatch'
 import { Route as DryVanDispatchRouteImport } from './routes/dry-van-dispatch'
@@ -177,6 +178,11 @@ const LocationsRoute = LocationsRouteImport.update({
   path: '/locations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearningCenterRoute = LearningCenterRouteImport.update({
+  id: '/learning-center',
+  path: '/learning-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HotshotDispatchRoute = HotshotDispatchRouteImport.update({
   id: '/hotshot-dispatch',
   path: '/hotshot-dispatch',
@@ -269,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/learning-center': typeof LearningCenterRoute
   '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
@@ -312,6 +319,7 @@ export interface FileRoutesByTo {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/learning-center': typeof LearningCenterRoute
   '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/dry-van-dispatch': typeof DryVanDispatchRoute
   '/flatbed-dispatch': typeof FlatbedDispatchRoute
   '/hotshot-dispatch': typeof HotshotDispatchRoute
+  '/learning-center': typeof LearningCenterRoute
   '/locations': typeof LocationsRoute
   '/owner-operator-dispatch': typeof OwnerOperatorDispatchRoute
   '/power-only-dispatch': typeof PowerOnlyDispatchRoute
@@ -401,6 +410,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/learning-center'
     | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/learning-center'
     | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
@@ -487,6 +498,7 @@ export interface FileRouteTypes {
     | '/dry-van-dispatch'
     | '/flatbed-dispatch'
     | '/hotshot-dispatch'
+    | '/learning-center'
     | '/locations'
     | '/owner-operator-dispatch'
     | '/power-only-dispatch'
@@ -531,6 +543,7 @@ export interface RootRouteChildren {
   DryVanDispatchRoute: typeof DryVanDispatchRoute
   FlatbedDispatchRoute: typeof FlatbedDispatchRoute
   HotshotDispatchRoute: typeof HotshotDispatchRoute
+  LearningCenterRoute: typeof LearningCenterRoute
   LocationsRoute: typeof LocationsRoute
   OwnerOperatorDispatchRoute: typeof OwnerOperatorDispatchRoute
   PowerOnlyDispatchRoute: typeof PowerOnlyDispatchRoute
@@ -741,6 +754,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning-center': {
+      id: '/learning-center'
+      path: '/learning-center'
+      fullPath: '/learning-center'
+      preLoaderRoute: typeof LearningCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hotshot-dispatch': {
       id: '/hotshot-dispatch'
       path: '/hotshot-dispatch'
@@ -867,6 +887,7 @@ const rootRouteChildren: RootRouteChildren = {
   DryVanDispatchRoute: DryVanDispatchRoute,
   FlatbedDispatchRoute: FlatbedDispatchRoute,
   HotshotDispatchRoute: HotshotDispatchRoute,
+  LearningCenterRoute: LearningCenterRoute,
   LocationsRoute: LocationsRoute,
   OwnerOperatorDispatchRoute: OwnerOperatorDispatchRoute,
   PowerOnlyDispatchRoute: PowerOnlyDispatchRoute,
