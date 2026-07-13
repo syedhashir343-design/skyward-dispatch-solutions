@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, MapPin, Phone } from "lucide-react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export type LocationPageContent = {
   city: string;
@@ -20,6 +21,13 @@ export function LocationPageLayout({ content }: { content: LocationPageContent }
       <section className="bg-gradient-brand text-brand-foreground relative overflow-hidden pt-32 pb-20">
         <div className="bg-brand-light/20 absolute -top-32 -left-32 h-96 w-96 rounded-full blur-3xl" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Breadcrumbs
+            className="mb-6"
+            items={[
+              { label: "Locations", to: "/locations" },
+              { label: `${content.city}, ${content.stateAbbr}` },
+            ]}
+          />
           <p className="text-brand-light inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest">
             <MapPin className="h-4 w-4" /> {cityState}
           </p>
