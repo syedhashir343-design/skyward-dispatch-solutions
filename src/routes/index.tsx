@@ -364,7 +364,7 @@ function Index() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 to="/carrier-setup"
-                className="bg-gradient-brand-animated text-brand-foreground shimmer-on-hover group inline-flex h-14 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold shadow-elegant transition-transform hover:scale-[1.03]"
+                className="btn-magnetic bg-gradient-brand-animated text-brand-foreground shimmer-on-hover group inline-flex h-14 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold shadow-elegant"
               >
                 Get Started
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
